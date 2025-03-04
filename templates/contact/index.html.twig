@@ -1,0 +1,65 @@
+{% extends "base.html.twig" %}
+
+{% block body%}
+<main aria-label="contenu principal" id="main" class="my-auto">
+	<div class="container  mx-md-auto">
+		<div class="row d-flex flex-sm-column flex-md-row-reverse align-items-center">
+			<div class="col-sm-12 col-md-4">
+				<img src="{{ asset('img/service-client.webp') }}" class="img-fluid illustration image-1" alt="image d'illustration du service service-client">
+			</div>
+			<div class="col-sm-12 col-md-7 m-md-3">
+				<h2>Contactez-nous :</h2>
+				{% include "_inc/notice.html.twig" %}
+
+				{# j'ai essayé ce code tiré du thème mais il ne trouve pas la variable errors #}
+				{# {% block form_errors %}
+                        {% if errors|length > 0 %}
+                            {% for error in errors %}
+                                <div class="{% if form is not rootform %}invalid-feedback{% else %}alert alert-danger{% endif %} d-block">{{ error.message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endblock form_errors %} #}
+
+					{# {% form_theme form 'bootstrap_5_layout.html.twig'%} #}
+					{#attention quand on met ce thème, il applique d'office les classes form_control ou form_label. du coup le attr fait doublon. alors que je voulais juste que les erreurs s'écrivent en rouge  #}
+
+					{{ form_start(form, { attr: { novalidate: 'novalidate', aria_label:'formulaire de contact', class:"contact-form" } }) }}
+						<div class="row"> <div class="col-md-6 col-sm-12">
+							{{ form_label(form.firstname, 'Prénom :', { label_attr: { class:'form-label'} }) }}
+							{{ form_widget(form.firstname, { attr: { class:'form-control', aria_label:'Veuillez obligatoirement saisir votre prénom'} }) }}
+							{{ form_errors(form.firstname, { attr: { class:'alert alert-danger'} }) }}
+						</div>
+						<div class="col-md-6 col-sm-12">
+							{{ form_label(form.lastname, 'Nom :', { label_attr: { class:'form-label'} }) }}
+							{{ form_widget(form.lastname, { attr: { class: 'form-control',aria_label:'Veuillez obligatoirement saisir votre nom'} }) }}
+							{{ form_errors(form.lastname) }}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 col-sm-12">
+							{{ form_label(form.email, 'Email :', { label_attr: { class:'form-label'} }) }}
+							{{ form_widget(form.email, { attr: { class:'form-control', aria_label:'Veuillez obligatoirement saisir votre email'} }) }}
+							{{ form_errors(form.email, { attr: { style:'color:red'} }) }}
+						</div>
+						{# <div class="col-md-6 col-sm-12">
+						                                {{ form_label(form.phone, 'Téléphone :', { label_attr: { class: 'form-label'} }) }}
+						                                {{ form_widget(form.phone, { attr: { class: 'form-control', aria_label:'Veuillez saisir votre numéro de téléphone'} }) }}
+						                                {{ form_errors(form.phone) }}                                
+						                            </div> #}
+					</div>
+					<div class="row">
+						<div class="col-12">
+							{{ form_label(form.message, 'Message :', { label_attr: { class: 'form-label'} }) }}
+							{{ form_widget(form.message, { attr: { class: 'form-control w-100', aria_label:'Veuillez obligatoirement saisir votre message'} }) }}
+							{{ form_errors(form.message) }}
+						</div>
+					</div>
+					<div>
+						<button type="submit" class="btn button btn-secondary btn-submit">Envoyer</button>
+					</div>
+					{{ form_end(form) }}
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}

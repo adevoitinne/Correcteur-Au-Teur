@@ -1,0 +1,290 @@
+*:focus{
+    outline: 0.3rem solid darkblue;
+}
+
+/* 1er essai de positionnement  */
+/* html{
+    height: 100%;
+} */
+
+/* 2ème essai de positionnement  */
+/* html, body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+} */
+
+body{
+    background-image: url(../img/arriere-plan.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* 1er essai de positionnement  */
+    /* min-height: 100%; */
+    /* position: relative; */
+    /* 2ème essai de positionnement  */
+    /* display: table;
+    width: 100%; */
+    /* 3ème essai de positionnement  */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* 4ème essai de positionnement  */
+    /* min-height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr auto; */
+}
+
+p{
+    font-family: BookAntiqua
+}
+
+a{
+    text-decoration: none; 
+    color: black;
+}
+
+.simple-link{
+    color:  #7b6cde;
+    font-style: italic;
+    font-weight: bold;
+}
+
+img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.skip-links{
+    position: absolute;
+    transform: translateY(-100%);
+}
+
+.skip-links:focus-within{
+    position: relative;
+    transform: translateY(0);
+}
+
+header{
+    background-color: #bcb6e7;
+}
+
+.top{
+    display: grid;
+    grid-template: 6rem/ 1fr 2fr 1fr;
+    justify-items: center;
+    align-items: center;
+    padding-block: 1%;
+    padding-inline: 1%;
+    background-color: #bcb6e7;
+}
+
+.logo{
+    grid-area: 1/1/2/2;
+}
+
+.logo img{
+   width: 12rem;
+}
+
+.title{
+    grid-area: 1/2/2/3;
+    margin-bottom: 0%;
+    font-family: calligraffitti;
+    font-size: clamp( 2.5rem, 4vw, 4rem);
+    font-weight: 600;
+}
+
+
+.menu{
+    background-color: #7b6cde;
+    width: 100vw;
+    max-width: none;
+}
+
+.menu a{
+    font-family: BookAntiqua;
+    font-size: clamp(1rem, 1vw, 1.5rem);
+}
+
+.navbar-nav{
+    column-gap: 1vw;
+}
+
+.nav-item{
+    width: 18%;
+    text-align: center;
+    align-self: center;
+}
+
+footer{
+    background-color: #bcb6e7;
+    /* 1er essai de positionnement */
+    /* position: absolute;
+    bottom: 0; */
+    /* 2ème essai de positionnement */
+    /* display: table-row;
+    height: 100px; */
+    /* 3ème essai de positionnement */
+    margin-top: auto;
+}
+
+.bottom{
+    display: grid;
+    grid-template: auto / 1fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    padding-block: 1rem;
+    padding-inline: 2rem;
+} 
+
+
+.bottom p,a{
+    font-family: BookAntiqua;
+    font-size: clamp(1rem, 1vw, 1.5rem);
+}
+
+.bottom p{
+    margin-bottom: 0;
+}
+
+.contact{
+    grid-area: 1/1/2/2;
+}
+
+.socials{
+    grid-area: 1/2/2/3;
+    display: flex;
+    align-items: center;
+    column-gap: 1.5rem;
+}
+
+.socials-link img{
+    width: 4vh;
+    height: 4vh;
+}
+
+.cgs-link{
+    grid-area: 1/-1/2/-2;  
+    text-align: end;
+}
+
+.subtitle{
+    font-family: Calligraffitti;
+}
+
+.subtitle-text{
+    background-color: white;
+    border-radius: 20px;
+    font-size: clamp(2rem, 3vw, 3rem);
+}
+
+.section p, a{
+    font-family: BookAntiqua;
+}
+
+.c-a-t{
+    font-family: Calligraffitti;
+    color: #7b6cde;
+    font-style: italic;
+}
+
+.illustration{
+    border-radius: 20px;
+}
+
+
+.paragraph{
+    background-color: var(--background-color);
+    --background-color : none;
+    border-radius: 20px;
+}
+
+.image-1{
+    transform: rotate(5deg);
+}
+
+.image-2{
+    transform: rotate(-5deg);
+    z-index: -1;
+}
+
+
+.button{
+    padding: 0.5rem 0.7rem;
+    border: 1px solid #7b6cde;
+    color: white;
+    border-radius: 5px;
+    background-color: #7b6cde;
+    text-decoration: none;
+}
+
+.separation{
+    border-right: solid .2rem black;  
+}
+
+@media screen and (max-width: 62rem) {   
+    .top{
+        grid-template: 4rem/ 1fr 2fr 1fr; 
+    }
+    
+    
+    .logo img{
+        display: none;
+    }
+    
+    .navbar-toggler{
+        position: fixed;
+        inset-inline-start: 2rem;
+        inset-block-start: 2rem;
+        background-color: cornflowerblue;
+    }
+
+    .menu{
+        background-color: rgba(255, 255, 255,0);
+    }
+
+    .contact{
+        display: none;
+    }
+
+    .bottom{
+        grid-template: auto / 1fr 1fr;
+    }
+
+    .socials{
+        grid-area: 1/1/2/2;
+    }
+   
+    .cgs-link{
+        grid-area: 1/2/2/3;
+    }
+
+    .image-1, .image-2{
+        transform: none;
+        align-items: center;
+    }
+    
+    .separation{
+        border-bottom: solid .2rem black; 
+        border-right: none;
+    }
+}
+
+/* personnalisation modales cookies */
+#tarteaucitronAlertBig, #tarteaucitronSave, #tarteaucitronMainLineOffset{
+    background-color: #7b6cde !important;
+}
+
+.tarteaucitronPartnersList, #tarteaucitronInfo{
+    background-color: #fcb9b9 !important;
+}
+
+#tarteaucitronInfo{
+    color: black !important;
+}
+
+.tarteaucitronLine{
+    background-color: rgba(252,185,185, .6) !important;
+}
+
+

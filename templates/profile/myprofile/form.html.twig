@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<main aria-label="contenu principal" id="main">
+    	<div class="container-fluid">
+			<h2 class="text-center subtitle ">Mon profil</h2>
+            {% include "_inc/notice.html.twig" %}
+			<div class="row">
+				<div class="col-md-6 col-sm-6">
+					 {{ form_start(form, { attr: { novalidate: 'novalidate', aria_label:"formulaire de profil" } }) }}
+                        <div class="row">
+                           
+                        </div>
+                        <div class="row">
+                            <fieldset aria-label="Veuiller renseigner vos identifiant et mot de passe" class="col-md-6 col-sm-12">
+                            <legend>Email et mot de passe :</legend>
+                            {{ form_label(form.email, 'Email :', { label_attr: { class:'form-label'} }) }}
+                            {{ form_widget(form.email, { attr: { class:'form-control', aria_label:'Veuillez obligatoirement saisir votre email'} }) }}
+                            {{ form_errors(form.email, { attr: { class:'text-danger'} }) }}  
+                            </fieldset>             
+                        </div>
+                           {#à compléter quand member modifiée  #}
+                     
+                        <div>
+                             <button type="submit" class="btn button btn-secondary btn-submit">Valider</button>
+                        </div>
+			        {{ form_end(form) }}
+				</div>
+                <p>
+				    <a href="{{ url('profile.homepage.index') }}" class="btn button btn-secondary">Retour au menu</a>
+                    <a href="{{ url('profile.myprofile.password.edit') }}" class="btn button btn-secondary">Modifier mon mot de passe</a>
+			    </p>
+			</div>
+		</div>
+	</main>
+{% endblock %}

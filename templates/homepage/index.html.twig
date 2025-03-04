@@ -1,0 +1,60 @@
+{% extends "base.html.twig" %}
+
+{% block body%}
+	<main aria-label="contenu principal" id="main">
+		<div class="container-fluid">
+			<div class="subtitle row py-4 justify-content-sm-center justify-content-md-start">
+				<h2 class="subtitle-text col-auto offset-md-2 border-1 shadow  py-1">La Correction d' Auteur à Auteur</h2>
+			</div>
+			<div class="row flex-sm-column flex-md-row justify-content-around">
+				<section aria-label="texte d'explication" class="col-sm-12 col-md-8 section">
+					<p class="h4 py-2 paragraph">
+						Que ce soit pour le présenter aux maisons d'édition ou pour se lancer dans             l'Auto-édition, un manuscrit doit au préalable être corrigé par un tiers. La correction révélera le potentiel du texte en gommant ses défauts et en soulignant ses atouts !
+					</p>
+					<p class="h4 py-2 paragraph">
+						Trouver un Correcteur compétent, disponible et qui comprenne le point de vue de l'Auteur ne sera jamais plus mission impossible.
+						<strong class="c-a-t h3">Correct-Au-Teur</strong>
+						est la solution !
+					</p>
+					<p class="h4 py-2 paragraph">
+						Nous mettons en relation des auteurs pour relire et corriger, gratuitement, les travaux d'autres auteurs.
+						Cliquez
+						<a class="h4 simple-link" href="{{url('functioning.index')}}">ici</a>
+						pour voir comment cela fonctionne.
+					</p>
+					<p class="h4 py-2 paragraph">
+						Votre manuscrit sera dans les mains d'un Auteur que vous aurez choisi selon son profil et vos échanges préalables.
+					</p>
+				</section>
+				<div class="col-sm-8 offset-sm-2 col-md-3 offset-md-0 pb-3 image-1">
+					<img src="{{ asset('img/mains-entraide.png') }}" class="img-fluid illustration" alt="image d'illustration de l'entraide">
+				</div>
+			</div>
+			<div class="row flex-sm-column flex-md-row-reverse justify-content-around">
+				<section aria-label="texte d'explication" class="col-sm-12 col-md-8 section">
+					<p class="h4 py-2 paragraph">
+						Voyez cela comme un échange de bons procédés! En effet, si votre collaboration répond à vos attentes, vous pourrez rendre la pareille à « votre » Correcteur !
+					</p>
+					<p class="h4 py-2 paragraph">
+						Concernant la protection juridique de votre œuvre, pas de crainte à avoir. Nous avons pensé à tout, aller en page
+						<a class="h4 simple-link" href="{{url('legal-support.index')}}">Accompagnement Juridique</a>
+						pour en savoir plus.
+					</p>
+					<p class="h4 py-2 paragraph">
+						Concernant l'aspect technique, nous vous recommandons la bonne méthode pour la correction de votre manuscrit et les échanges avec le Correcteur. Aller en page
+						<a class="h4 simple-link" href="{{url('technical-support.index')}}">Accompagnement Technique</a>
+						pour en savoir plus.
+					</p>
+					<p class="h4 py-2 paragraph">
+						Créez vite votre Profil Membre,
+						<a class="h4 simple-link" href="{{url('registration.register')}}">ici</a>, pour faire partie de l'Aventure
+						<strong class="c-a-t h3">Correct-Au-Teur</strong>.
+					</p>
+				</section>
+				<div class="col-sm-8 offset-sm-2 col-md-3 offset-md-0 mb-2 image-2">
+					<img src="{{ asset('img/main-ecrit.png') }}" class="img-fluid illustration" alt="image d'illustration de l'écriture">
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}

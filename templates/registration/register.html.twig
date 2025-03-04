@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register
+{% endblock %}
+
+{% block body %}
+	<main aria-label="contenu principal" id="main" class="my-auto">
+		<div class="container mx-md-auto">
+			<div class="row flex-sm-column flex-md-row-reverse">
+
+
+				<div class="col-sm-12 col-md-12">
+					<h2>Créer votre profil :</h2>
+
+					{% include "_inc/notice.html.twig" %}
+
+					{# les messages d'erreurs n'apparaissent pas en rouge quoique je fasse(style: 'red' ou  classe error-message avec la couleur fixée dans la feuille form.css). l'attribut n'apparait pas sur la balise li créée#}
+
+					{{ form_start(registrationForm, { attr: { novalidate: 'novalidate', aria_label:"formulaire d'inscription" } }) }}
+					<div class="row"></div>
+					<div class="row">
+						<div class="col-md-6 col-sm-12">
+							{{ form_label(registrationForm.email, 'Email :', { label_attr: { class:'form-label'} }) }}
+							{{ form_widget(registrationForm.email, { attr: { class:'form-control', aria_label:'Veuillez obligatoirement saisir votre email'} }) }}
+							{{ form_errors(registrationForm.email, { attr: { class:'text-danger'} }) }}
+						</div>
+						<div class="col-md-6 col-sm-12">
+							{{ form_label(registrationForm.plainPassword, 'Mot de Passe :', { label_attr: { class:'form-label'} }) }}
+							{{ form_widget(registrationForm.plainPassword, { attr: { class:'form-control', aria_label:'Veuillez obligatoirement saisir votre mot de passe'} }) }}
+							{{ form_errors(registrationForm.plainPassword, { attr: { class:'text-danger'} }) }}
+						</div>
+
+					</div>
+					<div>
+						{{ form_label(registrationForm.agreeTerms, 'AgreeTerms :', { label_attr: { class:'form-label'} }) }}
+						{{ form_widget(registrationForm.agreeTerms, { attr: { class:'form-control form-check-input', aria_label:'Veuillez obligatoirement approuver les CGS'} }) }}
+						{{ form_errors(registrationForm.agreeTerms, { attr: { class:'text-danger'} }) }}
+					</div>
+					<div>
+						<button type="submit" class="btn btn-secondary btn-submit">Envoyer</button>
+					</div>
+					{{ form_end(registrationForm) }}
+				</div>
+			</div>
+		</div>
+	</main>
+
+{% endblock %}

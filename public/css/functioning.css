@@ -1,0 +1,43 @@
+.explanation{
+    display: grid;
+    grid-template: auto auto/1fr 5fr 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+.left-band{
+    grid-area: 1/1/2/2;
+}
+
+.operation-diagram{
+    grid-area: 1/2/2/3;
+}
+
+.right-band{
+    grid-area: 1/3/2/4;
+}
+
+.bottom-band{
+    grid-area: 2/1/3/4;
+    align-self: start;
+}
+
+.small-image{
+    display: none;
+}
+
+
+@media screen and (max-width: 62rem) {
+    .left-band, .right-band{
+        display: none;
+    }
+
+    .big-image{
+        display: none;
+    }
+
+    .small-image{
+        display: initial;
+    }
+}
+    

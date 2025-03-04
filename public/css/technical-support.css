@@ -1,0 +1,27 @@
+.logo-gd{
+    height: 8rem;
+}
+
+/* .youtube_player{
+    border-radius: 20px;
+    
+} */
+iframe{
+    border-radius: 20px;
+}
+
+@media screen and (max-width: 48rem) {
+    /* .youtube_player{
+        max-width: 500px;
+        max-height: 281px;
+    } */
+
+    iframe{
+        max-width: 500px;
+        max-height: 281px;
+    }
+
+    .logo-gd{
+        height: 4rem;
+    }
+}

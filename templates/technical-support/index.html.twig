@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% block body%} 
+  <main aria-label="contenu principal" id="main" class="my-auto">
+    <div class="container-fluid px-md-5 row-gap-md-5">
+      <div class="row flex-md-row flex-sm-column justify-content-center align-items-center column-gap-2 my-5">
+        <div class="col-12 text-center">
+          <p class="h4 py-2">
+            Le moyen le plus simple pour transmettre son manuscrit à votre correcteur et pour faciliter les échanges durant la phase de correction est le service Google Docs (lien ci-dessous) : 
+          </p>
+          <a href="https://workspace.google.com/intl/fr-CA/products/docs/" target="_blank" aria-label="lien vers Google Docs">
+            <img src="{{ asset('img/logo-google-docs.png') }}" alt="logo Google Docs" class="logo-gd">
+          </a>
+        </div>
+      </div>
+      <div class="row flex-md-row flex-sm-column justify-content-center align-items-center column-gap-2 my-5">
+        <div class="col-md-4 col-sm-12 text-center">
+          <p class="h4 py-2">
+            Cette vidéo vous aidera à démarrer sur Google Docs en toute confiance :
+          </p>
+          <p class="h4 py-2">
+            En cas de besoin, n'hésitez pas à nous contacter <a href="{{ url('contact.index') }}" class="h4 simple-link">ici</a> pour un support.
+          </p>
+        </div>
+        <div class="col-md-7 col-sm-12 text-center">
+          <div class="video">
+            <iframe width="659" height="371" src="https://www.youtube.com/embed/1lwumGvmEEM" title="Tuto Google Docs pour les Nuls | Les Indispensables" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+            </iframe>
+            {# <div class="youtube_player" videoID="1lwumGvmEEM" width="659" height="371" theme="light" rel="0" controls="1" showinfo="0" autoplay="0" mute="0" srcdoc="" loop="0" loading="0" data-start="start" data-end="end"></div> #}
+          </div>
+        </div>      
+      </div> 
+    </div>
+  </main>
+{% endblock %}

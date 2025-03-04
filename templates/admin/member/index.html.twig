@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<main aria-label="contenu principal" id="main">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col">
+					<h2>Membres</h2>
+					{% include '_inc/notice.html.twig' %}
+					<table class="table table-striped">
+						<tr>
+							<th>Email</th>
+						</tr>
+						{% for member in members %}
+							<tr>
+								<td>{{member.email}}</td>
+								<td>
+									<a href="{{ url('admin.member.detail', { id: member.id }) }}" class="btn btn-secondary">Consult</a>
+									<a href="{{ url('admin.member.remove', { id: member.id }) }}" class="btn btn-danger">Remove</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</table>
+					<p>
+						<a href="{{ url('admin.homepage.index') }}" class="btn btn-secondary">Retour à l'Espace administration</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}
+
+{# à compléter quand member complet #}

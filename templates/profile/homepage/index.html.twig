@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<main aria-label="contenu principal" id="main" class="my-auto">
+		<div class="container-fluid">
+			<h2 class="text-center subtitle ">C'est parti pour l'aventure Correc-Au-teur !</h2>
+			<p class="h4 text-center paragraph pb-5">Vous êtes dans l'espace privé. Seuls les membres y ont accès.</p>
+			<div class="row align-items-center">
+				<div class="col-md-6 col-sm-6 grid-menu">
+					<p class="title-1 title-menu h4">Mon profil</p>
+					<a href="{{url('profile.myprofile.form')}}" class="btn button btn-secondary link-menu link-1">Gérer</a>
+					<p class="title-2 title-menu h4">Mes demandes de correction</p>
+					<a href="{{ url('profile.myrequest.index')}}" class="btn button btn-secondary link-menu link-2">Gérer</a>
+					<p class="title-3 title-menu h4">Toutes les demandes</p>
+					<a href="#" class="btn button btn-secondary link-menu link-3">Consulter</a>
+					<p class="title-4 title-menu h4">Me déconnecter</p>
+					<a href="{{url('security.logout')}}" class="btn button btn-secondary link-menu link-4">Déconnexion</a>
+				</div>
+				<div class="col-md-6 col-sm-12 row">
+					<div class="col-6 mx-auto mt-sm-4 mt-md-0 mb-2 image-2">
+						<img src="{{ asset('img/aventure_livre.png') }}" class="img-fluid illustration" alt="image d'illustration de l'aventure littéraire">
+					</div>
+					<section aria-label="texte d'explication" class="section col-12">
+
+						<p class="h4 py-2 px-2 paragraph">Depuis ce menu, vous pourrez gérer votre profil, vos demandes de corrections.</p>
+						<p class="h4 py-2 px-2 paragraph">Vous pourrez également consulter les demandes de corrections des autres Auteurs membres.</p>
+					</section>
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}

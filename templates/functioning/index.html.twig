@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block body%}
+	<main aria-label="contenu principal" id="main">
+		<div class="explanation">
+			<div class="left-band">
+				<p class="h5">
+					Profil membre créé</p>
+			</div>
+			<div class="operation-diagram">
+				<div class="big-image">
+					<img class="diagram" src="{{ asset('img/operation-diagram.png') }}" alt="diagramme de fonctionnement de Correct-Au-Teur">
+				</div>
+				<div class="small-image">
+					<img class="diagram" src="{{ asset('img/operation-diagram-smartphone.png') }}" alt="diagramme de fonctionnement de Correct-Au-Teur">
+				</div>
+			</div>
+			<div class="right-band">
+				<p class="h5">
+					Profil membre créé</p>
+				<p class="h5">Reçoit une alerte quand une demande de correction correspond à ses centres d'intérêts</p>
+			</div>
+			<div class="bottom-band text-center">
+				<p class="fw-bold h4">Créez vite votre Profil Membre
+					<a class="h4 simple-link" href="{{ url('registration.register') }}">ici</a>, pour faire partie de l'Aventure
+					<strong class="c-a-t h3">Correct-Au-Teur</strong>
+				</p>
+			</div>
+		</div>
+	</main>
+{% endblock %}
