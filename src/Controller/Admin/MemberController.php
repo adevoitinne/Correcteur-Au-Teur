@@ -5,8 +5,10 @@ namespace App\Controller\Admin;
 use App\Repository\MemberRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\UX\Turbo\TurboBundle;
 
 #[Route('/admin/member')]
 class MemberController extends AbstractController
@@ -27,18 +29,24 @@ class MemberController extends AbstractController
     public function detail(int $id):Response
     {
         return $this->render('admin/member/detail.html.twig', [
-            'user' =>$this->memberRepository->find($id)
+            'member' =>$this->memberRepository->find($id)
         ]);
     }
 
     
     #[Route('/remove/{id}', 'admin.member.remove')]
-    public function remove(int $id):Response
+    public function remove(Request $request, int $id):Response
     {
-        $user = $this->memberRepository->find($id);
+        $member = $this->memberRepository->find($id);
+        $memberId = $id;
 
-        $this->entityManager->remove($user);
+        $this->entityManager->remove($member);
         $this->entityManager->flush();
+
+        if($request->getPreferredFormat()===TurboBundle::STREAM_FORMAT){
+            $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+            return $this->render('admin/member/delete.html.twig', ['memberId'=>$memberId]);
+        }
 
         $this->addFlash('notice', 'Member removed');
         

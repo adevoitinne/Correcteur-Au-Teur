@@ -3,3 +3,9 @@
 		{{ notice }}
 	</p>
 {% endfor %}
+
+{% for danger in app.flashes('danger')%}
+	<p class="alert alert-danger">
+		{{ danger }}
+	</p>
+{% endfor %}

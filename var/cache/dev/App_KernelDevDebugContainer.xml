@@ -24,6 +24,7 @@
       <parameter key="DoctrineFixturesBundle">Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle</parameter>
       <parameter key="StimulusBundle">Symfony\UX\StimulusBundle\StimulusBundle</parameter>
       <parameter key="TogglePasswordBundle">Symfony\UX\TogglePassword\TogglePasswordBundle</parameter>
+      <parameter key="TurboBundle">Symfony\UX\Turbo\TurboBundle</parameter>
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
@@ -70,9 +71,14 @@
         <parameter key="path">/Volumes/T7 Shield/dossier-de-travail/vendor/symfony/ux-toggle-password</parameter>
         <parameter key="namespace">Symfony\UX\TogglePassword</parameter>
       </parameter>
+      <parameter key="TurboBundle" type="collection">
+        <parameter key="path">/Volumes/T7 Shield/dossier-de-travail/vendor/symfony/ux-turbo</parameter>
+        <parameter key="namespace">Symfony\UX\Turbo</parameter>
+      </parameter>
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
     <parameter key="kernel.container_class">App_KernelDevDebugContainer</parameter>
+    <parameter key="app.jwtsecret">%env(JWT_SECRET)%</parameter>
     <parameter key="event_dispatcher.event_aliases" type="collection">
       <parameter key="Symfony\Component\Console\Event\ConsoleCommandEvent">console.command</parameter>
       <parameter key="Symfony\Component\Console\Event\ConsoleErrorEvent">console.error</parameter>
@@ -101,7 +107,7 @@
     <parameter key="kernel.http_method_override">false</parameter>
     <parameter key="kernel.trust_x_sendfile_type_header">%env(bool:default::SYMFONY_TRUST_X_SENDFILE_TYPE_HEADER)%</parameter>
     <parameter key="kernel.trusted_hosts">%env(default::SYMFONY_TRUSTED_HOSTS)%</parameter>
-    <parameter key="kernel.default_locale">en</parameter>
+    <parameter key="kernel.default_locale">fr</parameter>
     <parameter key="kernel.enabled_locales" type="collection"/>
     <parameter key="kernel.error_controller">error_controller</parameter>
     <parameter key="kernel.trusted_proxies">%env(default::SYMFONY_TRUSTED_PROXIES)%</parameter>
@@ -137,6 +143,7 @@
     <parameter key="form.type_extension.csrf.field_attr" type="collection">
       <parameter key="data-controller">csrf-protection</parameter>
     </parameter>
+    <parameter key=".form.type_extension.csrf.token_id">submit</parameter>
     <parameter key="validator.mapping.cache.file">/Volumes/T7 Shield/dossier-de-travail/var/cache/dev/validation.php</parameter>
     <parameter key="validator.translation_domain">validators</parameter>
     <parameter key="profiler_listener.only_exceptions">false</parameter>
@@ -297,6 +304,10 @@
         <parameter>db</parameter>
         <parameter>@Doctrine/Collector/db.html.twig</parameter>
       </parameter>
+      <parameter key="mailer.data_collector" type="collection">
+        <parameter>mailer</parameter>
+        <parameter>@WebProfiler/Collector/mailer.html.twig</parameter>
+      </parameter>
       <parameter key="serializer.data_collector" type="collection">
         <parameter>serializer</parameter>
         <parameter>@WebProfiler/Collector/serializer.html.twig</parameter>
@@ -320,6 +331,7 @@
     <service id="App\Controller\Admin\ContactController" class="App\Controller\Admin\ContactController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
+      <argument type="service" id="request_stack"/>
       <argument type="service" id="App\MongoDB\Repository\ContactRepository"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\Admin\ContactController"/>
@@ -346,6 +358,7 @@
       <tag name="container.service_subscriber"/>
       <argument type="service" id="request_stack"/>
       <argument type="service" id="App\MongoDB\Repository\ContactRepository"/>
+      <argument type="service" id="App\Service\SendEmailService"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\ContactController"/>
       </call>
@@ -407,6 +420,8 @@
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <argument type="service" id="request_stack"/>
+      <argument type="service" id="App\Repository\MemberRepository"/>
+      <argument type="service" id="security.user_password_hasher"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\SecurityController"/>
       </call>
@@ -426,19 +441,25 @@
       <argument type="service" id="security.user_password_hasher"/>
     </service>
     <service id="App\Form\ContactType" class="App\Form\ContactType" autowire="true" autoconfigure="true">
-      <tag name="form.type"/>
+      <tag name="form.type" csrf_token_id="%.form.type_extension.csrf.token_id%"/>
     </service>
     <service id="App\Form\EditMyPasswordType" class="App\Form\EditMyPasswordType" autowire="true" autoconfigure="true">
-      <tag name="form.type"/>
+      <tag name="form.type" csrf_token_id="%.form.type_extension.csrf.token_id%"/>
     </service>
     <service id="App\Form\EditMyProfileType" class="App\Form\EditMyProfileType" autowire="true" autoconfigure="true">
-      <tag name="form.type"/>
+      <tag name="form.type" csrf_token_id="%.form.type_extension.csrf.token_id%"/>
     </service>
     <service id="App\Form\MemberType" class="App\Form\MemberType" autowire="true" autoconfigure="true">
-      <tag name="form.type"/>
+      <tag name="form.type" csrf_token_id="%.form.type_extension.csrf.token_id%"/>
     </service>
     <service id="App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" autoconfigure="true">
-      <tag name="form.type"/>
+      <tag name="form.type" csrf_token_id="%.form.type_extension.csrf.token_id%"/>
+    </service>
+    <service id="App\Form\ResetPasswordRequestType" class="App\Form\ResetPasswordRequestType" autowire="true" autoconfigure="true">
+      <tag name="form.type" csrf_token_id="%.form.type_extension.csrf.token_id%"/>
+    </service>
+    <service id="App\Form\ResetPasswordType" class="App\Form\ResetPasswordType" autowire="true" autoconfigure="true">
+      <tag name="form.type" csrf_token_id="%.form.type_extension.csrf.token_id%"/>
     </service>
     <service id="App\Model\Contact" class="App\Model\Contact" autowire="true" autoconfigure="true"/>
     <service id="App\MongoDB\MongoDBDatabase" class="App\MongoDB\MongoDBDatabase" autowire="true" autoconfigure="true">
@@ -453,6 +474,10 @@
     </service>
     <service id="App\Security\MainAuthenticator" class="App\Security\MainAuthenticator" autowire="true" autoconfigure="true">
       <argument type="service" id="router.default"/>
+    </service>
+    <service id="App\Service\JWTService" class="App\Service\JWTService" autowire="true" autoconfigure="true"/>
+    <service id="App\Service\SendEmailService" class="App\Service\SendEmailService" autowire="true" autoconfigure="true">
+      <argument type="service" id="mailer.mailer"/>
     </service>
     <service id="App\Twig\Extension\AppExtension" class="App\Twig\Extension\AppExtension" autowire="true" autoconfigure="true">
       <tag name="twig.extension"/>
@@ -488,7 +513,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator._m5FxLV"/>
+      <argument type="service" id=".service_locator.JGNS.wf"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -511,7 +536,7 @@
       <tag name="container.hot_path"/>
       <tag name="container.hot_path"/>
       <argument type="service" id="request_stack"/>
-      <argument>en</argument>
+      <argument>fr</argument>
       <argument type="service" id="router.default" on-invalid="ignore"/>
       <argument>false</argument>
       <argument type="collection"/>
@@ -558,7 +583,9 @@
       <argument type="service" id="debug.argument_resolver"/>
       <argument>true</argument>
     </service>
-    <service id="request_stack" class="Symfony\Component\HttpFoundation\RequestStack" public="true"/>
+    <service id="request_stack" class="Symfony\Component\HttpFoundation\RequestStack" public="true">
+      <tag name="kernel.reset" method="resetRequestFormats" on_invalid="ignore"/>
+    </service>
     <service id="http_cache" class="Symfony\Bundle\FrameworkBundle\HttpCache\HttpCache">
       <tag name="container.hot_path"/>
       <argument type="service" id="kernel"/>
@@ -603,6 +630,8 @@
     </service>
     <service id="services_resetter" class="Symfony\Component\HttpKernel\DependencyInjection\ServicesResetter" public="true">
       <argument type="iterator">
+        <argument key="request_stack" type="service" id="request_stack" on-invalid="ignore_uninitialized"/>
+        <argument key="container.env_var_processor" type="service" id="container.env_var_processor" on-invalid="ignore_uninitialized"/>
         <argument key="cache.app" type="service" id="cache.app" on-invalid="ignore_uninitialized"/>
         <argument key="cache.system" type="service" id="cache.system" on-invalid="ignore_uninitialized"/>
         <argument key="cache.validator" type="service" id="cache.validator" on-invalid="ignore_uninitialized"/>
@@ -610,6 +639,8 @@
         <argument key="cache.property_info" type="service" id="cache.property_info" on-invalid="ignore_uninitialized"/>
         <argument key="cache.asset_mapper" type="service" id="cache.asset_mapper" on-invalid="ignore_uninitialized"/>
         <argument key="http_client.transport" type="service" id="http_client.transport" on-invalid="ignore_uninitialized"/>
+        <argument key="http_client" type="service" id=".debug.http_client" on-invalid="ignore_uninitialized"/>
+        <argument key="mailer.message_logger_listener" type="service" id="mailer.message_logger_listener" on-invalid="ignore_uninitialized"/>
         <argument key="translation.locale_switcher" type="service" id="translation.locale_switcher" on-invalid="ignore_uninitialized"/>
         <argument key="debug.stopwatch" type="service" id="debug.stopwatch" on-invalid="ignore_uninitialized"/>
         <argument key="debug.event_dispatcher" type="service" id="debug.event_dispatcher" on-invalid="ignore_uninitialized"/>
@@ -633,6 +664,12 @@
         <argument key=".debug.http_client" type="service" id=".debug.http_client" on-invalid="ignore_uninitialized"/>
       </argument>
       <argument type="collection">
+        <argument key="request_stack" type="collection">
+          <argument>?resetRequestFormats</argument>
+        </argument>
+        <argument key="container.env_var_processor" type="collection">
+          <argument>reset</argument>
+        </argument>
         <argument key="cache.app" type="collection">
           <argument>reset</argument>
         </argument>
@@ -653,6 +690,12 @@
         </argument>
         <argument key="http_client.transport" type="collection">
           <argument>?reset</argument>
+        </argument>
+        <argument key="http_client" type="collection">
+          <argument>?reset</argument>
+        </argument>
+        <argument key="mailer.message_logger_listener" type="collection">
+          <argument>reset</argument>
         </argument>
         <argument key="translation.locale_switcher" type="collection">
           <argument>reset</argument>
@@ -737,12 +780,13 @@
     </service>
     <service id="container.env_var_processor" class="Symfony\Component\DependencyInjection\EnvVarProcessor">
       <tag name="container.env_var_processor"/>
+      <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="service_container"/>
       <argument type="tagged_iterator" tag="container.env_var_loader"/>
     </service>
     <service id="slugger" class="Symfony\Component\String\Slugger\AsciiSlugger">
       <tag name="kernel.locale_aware"/>
-      <argument>en</argument>
+      <argument>fr</argument>
     </service>
     <service id="container.getenv" class="Closure">
       <tag name="routing.expression_language_function" function="env"/>
@@ -1096,6 +1140,7 @@
         <argument>/Volumes/T7 Shield/dossier-de-travail/vendor/symfony/security-core/Resources/translations</argument>
       </argument>
       <argument type="collection">
+        <argument>/Volumes/T7 Shield/dossier-de-travail/vendor/symfony/twig-bridge/Resources/views/Email</argument>
         <argument>/Volumes/T7 Shield/dossier-de-travail/vendor/symfony/twig-bridge/Resources/views/Form</argument>
       </argument>
       <argument type="collection"/>
@@ -1112,7 +1157,7 @@
       <argument type="service" id="translation.writer"/>
       <argument type="service" id="translation.reader"/>
       <argument type="service" id="translation.extractor"/>
-      <argument>en</argument>
+      <argument>fr</argument>
       <argument>/Volumes/T7 Shield/dossier-de-travail/translations</argument>
       <argument>/Volumes/T7 Shield/dossier-de-travail/templates</argument>
       <argument type="collection">
@@ -1121,6 +1166,7 @@
         <argument>/Volumes/T7 Shield/dossier-de-travail/vendor/symfony/security-core/Resources/translations</argument>
       </argument>
       <argument type="collection">
+        <argument>/Volumes/T7 Shield/dossier-de-travail/vendor/symfony/twig-bridge/Resources/views/Email</argument>
         <argument>/Volumes/T7 Shield/dossier-de-travail/vendor/symfony/twig-bridge/Resources/views/Form</argument>
       </argument>
       <argument type="collection"/>
@@ -1148,7 +1194,7 @@
       <argument type="service" id="translation.provider_collection"/>
       <argument type="service" id="translation.writer"/>
       <argument type="service" id="translation.reader"/>
-      <argument>en</argument>
+      <argument>fr</argument>
       <argument type="collection"/>
       <argument type="collection"/>
       <call method="setName">
@@ -1219,6 +1265,8 @@
         <argument>App\Form\EditMyProfileType</argument>
         <argument>App\Form\MemberType</argument>
         <argument>App\Form\RegistrationFormType</argument>
+        <argument>App\Form\ResetPasswordRequestType</argument>
+        <argument>App\Form\ResetPasswordType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\ChoiceType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FileType</argument>
@@ -1492,7 +1540,6 @@
     </service>
     <service id="cache.system_clearer" class="Symfony\Component\HttpKernel\CacheClearer\Psr6CacheClearer" public="true">
       <tag name="cache.pool.clearer"/>
-      <tag name="kernel.cache_clearer"/>
       <argument type="collection">
         <argument key="cache.system" type="service" id="cache.system" on-invalid="ignore_uninitialized"/>
         <argument key="cache.validator" type="service" id="cache.validator" on-invalid="ignore_uninitialized"/>
@@ -1576,6 +1623,7 @@
     </service>
     <service id="asset_mapper.repository" class="Symfony\Component\AssetMapper\AssetMapperRepository">
       <argument type="collection">
+        <argument key="/Volumes/T7 Shield/dossier-de-travail/vendor/symfony/ux-turbo/src/DependencyInjection/../../assets/dist">@symfony/ux-turbo</argument>
         <argument key="/Volumes/T7 Shield/dossier-de-travail/vendor/symfony/ux-toggle-password/src/DependencyInjection/../../assets/dist">@symfony/ux-toggle-password</argument>
         <argument key="/Volumes/T7 Shield/dossier-de-travail/vendor/symfony/stimulus-bundle/src/DependencyInjection/../../assets/dist">@symfony/stimulus-bundle</argument>
         <argument key="assets/"></argument>
@@ -1697,7 +1745,9 @@
       <argument type="service" id="assets.packages" on-invalid="null"/>
       <argument>UTF-8</argument>
       <argument>es-module-shims</argument>
-      <argument type="collection"/>
+      <argument type="collection">
+        <argument key="data-turbo-track">reload</argument>
+      </argument>
       <argument type="service" id="request_stack"/>
     </service>
     <service id="asset_mapper.importmap.auditor" class="Symfony\Component\AssetMapper\ImportMap\ImportMapAuditor">
@@ -1819,11 +1869,83 @@
       <tag name="messenger.message_handler"/>
       <argument type="service" id=".debug.http_client"/>
     </service>
+    <service id="mailer.mailer" class="Symfony\Component\Mailer\Mailer">
+      <argument type="service" id="mailer.transports"/>
+      <argument>null</argument>
+      <argument type="service" id="debug.event_dispatcher" on-invalid="ignore"/>
+    </service>
+    <service id="mailer.transports" class="Symfony\Component\Mailer\Transport\Transports">
+      <argument type="collection">
+        <argument key="main">%env(MAILER_DSN)%</argument>
+      </argument>
+      <factory service="mailer.transport_factory" method="fromStrings"/>
+    </service>
+    <service id="mailer.transport_factory" class="Symfony\Component\Mailer\Transport">
+      <argument type="tagged_iterator" tag="mailer.transport_factory"/>
+    </service>
+    <service id="mailer.messenger.message_handler" class="Symfony\Component\Mailer\Messenger\MessageHandler">
+      <tag name="messenger.message_handler"/>
+      <argument type="service" id="mailer.transports"/>
+    </service>
+    <service id="mailer.envelope_listener" class="Symfony\Component\Mailer\EventListener\EnvelopeListener">
+      <tag name="kernel.event_subscriber"/>
+      <argument>null</argument>
+      <argument>null</argument>
+      <argument type="collection"/>
+    </service>
+    <service id="mailer.message_logger_listener" class="Symfony\Component\Mailer\EventListener\MessageLoggerListener">
+      <tag name="kernel.reset" method="reset"/>
+      <tag name="kernel.event_subscriber"/>
+    </service>
+    <service id="mailer.messenger_transport_listener" class="Symfony\Component\Mailer\EventListener\MessengerTransportListener">
+      <tag name="kernel.event_subscriber"/>
+    </service>
+    <service id="console.command.mailer_test" class="Symfony\Component\Mailer\Command\MailerTestCommand">
+      <tag name="console.command"/>
+      <tag name="container.no_preload"/>
+      <argument type="service" id="mailer.transports"/>
+      <call method="setName">
+        <argument>mailer:test</argument>
+      </call>
+      <call method="setDescription">
+        <argument>Test Mailer transports by sending an email</argument>
+      </call>
+    </service>
+    <service id="mailer.transport_factory.abstract" class="Symfony\Component\Mailer\Transport\AbstractTransportFactory" abstract="true">
+      <tag name="monolog.logger" channel="mailer"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument type="service" id=".debug.http_client" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
+    </service>
+    <service id="mailer.transport_factory.native" class="Symfony\Component\Mailer\Transport\NativeTransportFactory">
+      <tag name="mailer.transport_factory"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument type="service" id=".debug.http_client" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
+    </service>
+    <service id="mailer.transport_factory.null" class="Symfony\Component\Mailer\Transport\NullTransportFactory">
+      <tag name="mailer.transport_factory"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument type="service" id=".debug.http_client" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
+    </service>
+    <service id="mailer.transport_factory.sendmail" class="Symfony\Component\Mailer\Transport\SendmailTransportFactory">
+      <tag name="mailer.transport_factory"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument type="service" id=".debug.http_client" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
+    </service>
+    <service id="mailer.transport_factory.smtp" class="Symfony\Component\Mailer\Transport\Smtp\EsmtpTransportFactory">
+      <tag name="mailer.transport_factory"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument type="service" id=".debug.http_client" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
+    </service>
     <service id="translator.default" class="Symfony\Bundle\FrameworkBundle\Translation\Translator">
       <tag name="kernel.locale_aware"/>
       <argument type="service" id=".service_locator.ILdUWIS"/>
       <argument type="service" id="translator.formatter.default"/>
-      <argument>en</argument>
+      <argument>fr</argument>
       <argument type="collection">
         <argument key="translation.loader.php" type="collection">
           <argument>php</argument>
@@ -2167,6 +2289,7 @@
           <argument>/Volumes/T7 Shield/dossier-de-travail/vendor/doctrine/doctrine-fixtures-bundle/translations</argument>
           <argument>/Volumes/T7 Shield/dossier-de-travail/vendor/symfony/stimulus-bundle/translations</argument>
           <argument>/Volumes/T7 Shield/dossier-de-travail/vendor/symfony/ux-toggle-password/translations</argument>
+          <argument>/Volumes/T7 Shield/dossier-de-travail/vendor/symfony/ux-turbo/translations</argument>
         </argument>
         <argument key="cache_vary" type="collection">
           <argument key="scanned_directories" type="collection">
@@ -2185,6 +2308,7 @@
             <argument>vendor/doctrine/doctrine-fixtures-bundle/translations</argument>
             <argument>vendor/symfony/stimulus-bundle/translations</argument>
             <argument>vendor/symfony/ux-toggle-password/translations</argument>
+            <argument>vendor/symfony/ux-turbo/translations</argument>
           </argument>
         </argument>
       </argument>
@@ -2194,7 +2318,7 @@
       </call>
       <call method="setFallbackLocales">
         <argument type="collection">
-          <argument>en</argument>
+          <argument>fr</argument>
         </argument>
       </call>
     </service>
@@ -2487,7 +2611,7 @@
     <service id="translation.locale_switcher" class="Symfony\Component\Translation\LocaleSwitcher">
       <tag name="kernel.reset" method="reset"/>
       <tag name="kernel.locale_aware"/>
-      <argument>en</argument>
+      <argument>fr</argument>
       <argument type="tagged_iterator" tag="kernel.locale_aware" exclude="translation.locale_switcher"/>
       <argument type="service" id="router.request_context" on-invalid="ignore"/>
     </service>
@@ -2576,6 +2700,14 @@
           <argument>onKernelResponse</argument>
         </argument>
         <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>kernel.request</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="turbo.kernel.request_listener"/>
+          <argument>__invoke</argument>
+        </argument>
+        <argument>256</argument>
       </call>
       <call method="addListener">
         <argument>kernel.controller_arguments</argument>
@@ -2738,6 +2870,30 @@
         <argument>2048</argument>
       </call>
       <call method="addListener">
+        <argument>Symfony\Component\Mailer\Event\MessageEvent</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="mailer.envelope_listener"/>
+          <argument>onMessage</argument>
+        </argument>
+        <argument>-255</argument>
+      </call>
+      <call method="addListener">
+        <argument>Symfony\Component\Mailer\Event\MessageEvent</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="mailer.message_logger_listener"/>
+          <argument>onMessage</argument>
+        </argument>
+        <argument>-255</argument>
+      </call>
+      <call method="addListener">
+        <argument>Symfony\Component\Mailer\Event\MessageEvent</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="mailer.messenger_transport_listener"/>
+          <argument>onMessage</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
         <argument>kernel.request</argument>
         <argument type="collection">
           <argument type="service_closure" id="debug.debug_handlers_listener"/>
@@ -2866,6 +3022,14 @@
         <argument>-128</argument>
       </call>
       <call method="addListener">
+        <argument>Symfony\Component\Mailer\Event\MessageEvent</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="twig.mailer.message_listener"/>
+          <argument>onMessage</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
         <argument>kernel.response</argument>
         <argument type="collection">
           <argument type="service_closure" id="web_profiler.debug_toolbar"/>
@@ -2991,7 +3155,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator._m5FxLV"/>
+      <argument type="service" id=".service_locator.JGNS.wf"/>
     </service>
     <service id="routing.resolver" class="Symfony\Component\Config\Loader\LoaderResolver">
       <call method="addLoader">
@@ -3098,7 +3262,7 @@
       <argument type="service" id="router.request_context" on-invalid="ignore"/>
       <argument type="service" id="parameter_bag" on-invalid="ignore"/>
       <argument type="service" id="logger" on-invalid="ignore"/>
-      <argument>en</argument>
+      <argument>fr</argument>
       <call method="setConfigCacheFactory">
         <argument type="service" id="config_cache_factory"/>
       </call>
@@ -3526,7 +3690,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension">
-      <argument type="service" id=".service_locator.Ik507io"/>
+      <argument type="service" id=".service_locator..0p0Y7y"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -3624,7 +3788,15 @@
       <argument>validators</argument>
       <argument type="service" id="form.server_params"/>
       <argument>%form.type_extension.csrf.field_attr%</argument>
-      <argument>submit</argument>
+      <argument type="collection">
+        <argument key="App\Form\ContactType">submit</argument>
+        <argument key="App\Form\EditMyPasswordType">submit</argument>
+        <argument key="App\Form\EditMyProfileType">submit</argument>
+        <argument key="App\Form\MemberType">submit</argument>
+        <argument key="App\Form\RegistrationFormType">submit</argument>
+        <argument key="App\Form\ResetPasswordRequestType">submit</argument>
+        <argument key="App\Form\ResetPasswordType">submit</argument>
+      </argument>
     </service>
     <service id="validator.builder" class="Symfony\Component\Validator\ValidatorBuilder">
       <call method="setConstraintValidatorFactory">
@@ -4031,6 +4203,9 @@
         <argument type="service" id="data_collector.doctrine"/>
       </call>
       <call method="add">
+        <argument type="service" id="mailer.data_collector"/>
+      </call>
+      <call method="add">
         <argument type="service" id="serializer.data_collector"/>
       </call>
       <call method="add">
@@ -4053,11 +4228,17 @@
     <service id="console_profiler_listener" class="Symfony\Bundle\FrameworkBundle\EventListener\ConsoleProfilerListener">
       <tag name="kernel.event_subscriber"/>
       <tag name="container.no_preload"/>
-      <argument type="service" id="profiler"/>
+      <argument type="service" id=".lazy_profiler"/>
       <argument type="service" id=".virtual_request_stack"/>
       <argument type="service" id="debug.stopwatch"/>
       <argument>%env(not:default:kernel.runtime_mode.web:)%</argument>
       <argument type="service" id="router.default" on-invalid="null"/>
+    </service>
+    <service id=".lazy_profiler" class="Symfony\Component\HttpKernel\Profiler\Profiler" lazy="true">
+      <argument type="collection">
+        <argument type="service" id="profiler"/>
+      </argument>
+      <factory function="current"/>
     </service>
     <service id=".virtual_request_stack" class="Symfony\Component\HttpKernel\Debug\VirtualRequestStack" public="true">
       <argument type="service" id="request_stack"/>
@@ -4200,6 +4381,10 @@
       <tag name="data_collector" template="@WebProfiler/Collector/translation.html.twig" id="translation" priority="275"/>
       <argument type="service" id="translator.data_collector"/>
     </service>
+    <service id="mailer.data_collector" class="Symfony\Component\Mailer\DataCollector\MessageDataCollector">
+      <tag name="data_collector" template="@WebProfiler/Collector/mailer.html.twig" id="mailer"/>
+      <argument type="service" id="mailer.message_logger_listener"/>
+    </service>
     <service id="data_collector.http_client" class="Symfony\Component\HttpClient\DataCollector\HttpClientDataCollector">
       <tag name="data_collector" template="@WebProfiler/Collector/http_client.html.twig" id="http_client" priority="250"/>
       <call method="registerClient">
@@ -4315,6 +4500,9 @@
         <argument type="service" id="stimulus.ux_controllers_twig_extension"/>
       </call>
       <call method="addExtension">
+        <argument type="service" id="turbo.twig.extension"/>
+      </call>
+      <call method="addExtension">
         <argument type="service" id="stimulus.twig_extension"/>
       </call>
       <call method="addGlobal">
@@ -4367,6 +4555,7 @@
     <service id="twig.template_iterator" class="Symfony\Bundle\TwigBundle\TemplateIterator">
       <argument type="service" id="kernel"/>
       <argument type="collection">
+        <argument key="/Volumes/T7 Shield/dossier-de-travail/vendor/symfony/twig-bridge/Resources/views/Email">email</argument>
         <argument key="/Volumes/T7 Shield/dossier-de-travail/vendor/symfony/twig-bridge/Resources/views/Form">null</argument>
       </argument>
       <argument>/Volumes/T7 Shield/dossier-de-travail/templates</argument>
@@ -4433,7 +4622,23 @@
         <argument>!TogglePassword</argument>
       </call>
       <call method="addPath">
+        <argument>/Volumes/T7 Shield/dossier-de-travail/vendor/symfony/ux-turbo/templates</argument>
+        <argument>Turbo</argument>
+      </call>
+      <call method="addPath">
+        <argument>/Volumes/T7 Shield/dossier-de-travail/vendor/symfony/ux-turbo/templates</argument>
+        <argument>!Turbo</argument>
+      </call>
+      <call method="addPath">
         <argument>/Volumes/T7 Shield/dossier-de-travail/templates</argument>
+      </call>
+      <call method="addPath">
+        <argument>/Volumes/T7 Shield/dossier-de-travail/vendor/symfony/twig-bridge/Resources/views/Email</argument>
+        <argument>email</argument>
+      </call>
+      <call method="addPath">
+        <argument>/Volumes/T7 Shield/dossier-de-travail/vendor/symfony/twig-bridge/Resources/views/Email</argument>
+        <argument>!email</argument>
       </call>
       <call method="addPath">
         <argument>/Volumes/T7 Shield/dossier-de-travail/vendor/symfony/twig-bridge/Resources/views/Form</argument>
@@ -4571,6 +4776,15 @@
       <call method="setDescription">
         <argument>Lint a Twig template and outputs encountered errors</argument>
       </call>
+    </service>
+    <service id="twig.mailer.message_listener" class="Symfony\Component\Mailer\EventListener\MessageListener">
+      <tag name="kernel.event_subscriber"/>
+      <argument>null</argument>
+      <argument type="service" id="twig.mime_body_renderer"/>
+    </service>
+    <service id="twig.mime_body_renderer" class="Symfony\Bridge\Twig\Mime\BodyRenderer">
+      <argument key="0" type="service" id="twig"/>
+      <argument key="localeSwitcher" type="service" id="translation.locale_switcher" on-invalid="ignore"/>
     </service>
     <service id="twig.runtime.importmap" class="Symfony\Bridge\Twig\Extension\ImportMapRuntime">
       <tag name="twig.runtime"/>
@@ -4968,7 +5182,7 @@
       </call>
     </service>
     <service id="doctrine.dbal.default_connection.event_manager" class="Symfony\Bridge\Doctrine\ContainerAwareEventManager">
-      <argument type="service" id=".service_locator.ZSS2D.Y"/>
+      <argument type="service" id=".service_locator.yIhhFCB"/>
       <argument type="collection">
         <argument type="collection">
           <argument type="collection">
@@ -4999,6 +5213,18 @@
             <argument>loadClassMetadata</argument>
           </argument>
           <argument>doctrine.orm.default_listeners.attach_entity_listeners</argument>
+        </argument>
+        <argument type="collection">
+          <argument type="collection">
+            <argument>onFlush</argument>
+          </argument>
+          <argument>turbo.doctrine.event_listener</argument>
+        </argument>
+        <argument type="collection">
+          <argument type="collection">
+            <argument>postFlush</argument>
+          </argument>
+          <argument>turbo.doctrine.event_listener</argument>
         </argument>
       </argument>
     </service>
@@ -6358,6 +6584,34 @@
       <tag name="form.type_extension"/>
       <argument type="service" id="translator.data_collector" on-invalid="ignore"/>
     </service>
+    <service id="turbo.id_accessor" class="Symfony\UX\Turbo\Broadcaster\IdAccessor">
+      <argument type="service" id="property_accessor" on-invalid="null"/>
+      <argument type="service" id="doctrine" on-invalid="null"/>
+    </service>
+    <service id="turbo.broadcaster.action_renderer" class="Symfony\UX\Turbo\Broadcaster\TwigBroadcaster">
+      <tag name="container.decorator" id="turbo.broadcaster.imux" inner="turbo.broadcaster.action_renderer.inner"/>
+      <argument type="service" id="turbo.broadcaster.action_renderer.inner"/>
+      <argument type="service" id="twig"/>
+      <argument type="collection">
+        <argument key="App\Entity\">broadcast/</argument>
+      </argument>
+      <argument type="service" id="turbo.id_accessor"/>
+    </service>
+    <service id="turbo.twig.extension" class="Symfony\UX\Turbo\Twig\TwigExtension">
+      <tag name="twig.extension"/>
+      <argument type="service" id=".service_locator.GIuJv7e"/>
+      <argument>default</argument>
+    </service>
+    <service id="turbo.doctrine.event_listener" class="Symfony\UX\Turbo\Doctrine\BroadcastListener">
+      <tag name="doctrine.event_listener" event="onFlush"/>
+      <tag name="doctrine.event_listener" event="postFlush"/>
+      <argument type="service" id="turbo.broadcaster.action_renderer"/>
+      <argument>null</argument>
+    </service>
+    <service id="turbo.kernel.request_listener" class="Symfony\UX\Turbo\Request\RequestListener">
+      <tag name="kernel.event_listener" event="kernel.request" priority="256"/>
+      <tag name="container.hot_path"/>
+    </service>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Admin\ContactController" class="App\Controller\Admin\ContactController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\ContactController" class="App\Controller\Admin\ContactController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Admin\ContactController" class="App\Controller\Admin\ContactController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -6411,6 +6665,10 @@
     <service id=".abstract.instanceof.App\Form\MemberType" class="App\Form\MemberType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ResetPasswordRequestType" class="App\Form\ResetPasswordRequestType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\ResetPasswordRequestType" class="App\Form\ResetPasswordRequestType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ResetPasswordType" class="App\Form\ResetPasswordType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\ResetPasswordType" class="App\Form\ResetPasswordType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\MemberRepository" class="App\Repository\MemberRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\MemberRepository" class="App\Repository\MemberRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Twig\Extension\ExtensionInterface.0.App\Twig\Extension\AppExtension" class="App\Twig\Extension\AppExtension" autowire="true" abstract="true"/>
@@ -6963,18 +7221,47 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.n_LpSm1" method="withContext"/>
     </service>
-    <service id=".service_locator.KAWHxDW" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.ojgjMmN" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="userPasswordHasher" type="service_closure" id="security.user_password_hasher"/>
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="jwt" type="service_closure" id="App\Service\JWTService"/>
+        <argument key="mail" type="service_closure" id="App\Service\SendEmailService"/>
       </argument>
     </service>
-    <service id=".service_locator.KAWHxDW.App\Controller\RegistrationController::register()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.ojgjMmN.App\Controller\RegistrationController::register()" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\RegistrationController::register()"/>
       <argument>App\Controller\RegistrationController::register()</argument>
       <argument type="service" id="service_container"/>
-      <factory service=".service_locator.KAWHxDW" method="withContext"/>
+      <factory service=".service_locator.ojgjMmN" method="withContext"/>
+    </service>
+    <service id=".service_locator.Jk.A8Hx" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="jwt" type="service_closure" id="App\Service\JWTService"/>
+        <argument key="member_repository" type="service_closure" id="App\Repository\MemberRepository"/>
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
+    <service id=".service_locator.Jk.A8Hx.App\Controller\RegistrationController::verifUser()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\RegistrationController::verifUser()"/>
+      <argument>App\Controller\RegistrationController::verifUser()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.Jk.A8Hx" method="withContext"/>
+    </service>
+    <service id=".service_locator.eR8LQuU" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="jwt" type="service_closure" id="App\Service\JWTService"/>
+        <argument key="mail" type="service_closure" id="App\Service\SendEmailService"/>
+      </argument>
+    </service>
+    <service id=".service_locator.eR8LQuU.App\Controller\RegistrationController::resendVerif()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\RegistrationController::resendVerif()"/>
+      <argument>App\Controller\RegistrationController::resendVerif()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.eR8LQuU" method="withContext"/>
     </service>
     <service id=".service_locator.3QECKYg" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
@@ -6988,7 +7275,27 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.3QECKYg" method="withContext"/>
     </service>
-    <service id=".service_locator._m5FxLV" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.eR8LQuU.App\Controller\SecurityController::forgottenPassword()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\SecurityController::forgottenPassword()"/>
+      <argument>App\Controller\SecurityController::forgottenPassword()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.eR8LQuU" method="withContext"/>
+    </service>
+    <service id=".service_locator..uQu1bZ" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="jwt" type="service_closure" id="App\Service\JWTService"/>
+        <argument key="mail" type="service_closure" id="App\Service\SendEmailService"/>
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
+    <service id=".service_locator..uQu1bZ.App\Controller\SecurityController::resetPassword()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\SecurityController::resetPassword()"/>
+      <argument>App\Controller\SecurityController::resetPassword()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator..uQu1bZ" method="withContext"/>
+    </service>
+    <service id=".service_locator.JGNS.wf" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
@@ -6996,13 +7303,21 @@
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
         <argument key="App\Controller\Profile\MyProfileController::edit" type="service_closure" id=".service_locator.n_LpSm1.App\Controller\Profile\MyProfileController::edit()"/>
-        <argument key="App\Controller\RegistrationController::register" type="service_closure" id=".service_locator.KAWHxDW.App\Controller\RegistrationController::register()"/>
+        <argument key="App\Controller\RegistrationController::register" type="service_closure" id=".service_locator.ojgjMmN.App\Controller\RegistrationController::register()"/>
+        <argument key="App\Controller\RegistrationController::verifUser" type="service_closure" id=".service_locator.Jk.A8Hx.App\Controller\RegistrationController::verifUser()"/>
+        <argument key="App\Controller\RegistrationController::resendVerif" type="service_closure" id=".service_locator.eR8LQuU.App\Controller\RegistrationController::resendVerif()"/>
         <argument key="App\Controller\SecurityController::login" type="service_closure" id=".service_locator.3QECKYg.App\Controller\SecurityController::login()"/>
+        <argument key="App\Controller\SecurityController::forgottenPassword" type="service_closure" id=".service_locator.eR8LQuU.App\Controller\SecurityController::forgottenPassword()"/>
+        <argument key="App\Controller\SecurityController::resetPassword" type="service_closure" id=".service_locator..uQu1bZ.App\Controller\SecurityController::resetPassword()"/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
         <argument key="App\Controller\Profile\MyProfileController:edit" type="service_closure" id=".service_locator.n_LpSm1.App\Controller\Profile\MyProfileController::edit()"/>
-        <argument key="App\Controller\RegistrationController:register" type="service_closure" id=".service_locator.KAWHxDW.App\Controller\RegistrationController::register()"/>
+        <argument key="App\Controller\RegistrationController:register" type="service_closure" id=".service_locator.ojgjMmN.App\Controller\RegistrationController::register()"/>
+        <argument key="App\Controller\RegistrationController:verifUser" type="service_closure" id=".service_locator.Jk.A8Hx.App\Controller\RegistrationController::verifUser()"/>
+        <argument key="App\Controller\RegistrationController:resendVerif" type="service_closure" id=".service_locator.eR8LQuU.App\Controller\RegistrationController::resendVerif()"/>
         <argument key="App\Controller\SecurityController:login" type="service_closure" id=".service_locator.3QECKYg.App\Controller\SecurityController::login()"/>
+        <argument key="App\Controller\SecurityController:forgottenPassword" type="service_closure" id=".service_locator.eR8LQuU.App\Controller\SecurityController::forgottenPassword()"/>
+        <argument key="App\Controller\SecurityController:resetPassword" type="service_closure" id=".service_locator..uQu1bZ.App\Controller\SecurityController::resetPassword()"/>
       </argument>
     </service>
     <service id=".service_locator.ea.H0ae" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -7177,7 +7492,7 @@
       <argument type="service" id="argument_resolver.query_parameter_value_resolver"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.Ik507io" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator..0p0Y7y" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\ContactType" type="service_closure" id="App\Form\ContactType"/>
@@ -7185,6 +7500,8 @@
         <argument key="App\Form\EditMyProfileType" type="service_closure" id="App\Form\EditMyProfileType"/>
         <argument key="App\Form\MemberType" type="service_closure" id="App\Form\MemberType"/>
         <argument key="App\Form\RegistrationFormType" type="service_closure" id="App\Form\RegistrationFormType"/>
+        <argument key="App\Form\ResetPasswordRequestType" type="service_closure" id="App\Form\ResetPasswordRequestType"/>
+        <argument key="App\Form\ResetPasswordType" type="service_closure" id="App\Form\ResetPasswordType"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="service_closure" id="form.type.form"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ChoiceType" type="service_closure" id="form.type.choice"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\FileType" type="service_closure" id="form.type.file"/>
@@ -7199,7 +7516,7 @@
       <argument type="service" id="http_client.uri_template"/>
       <argument type="service" id="debug.stopwatch" on-invalid="ignore"/>
     </service>
-    <service id=".service_locator.ZSS2D.Y" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.yIhhFCB" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="doctrine.orm.listeners.doctrine_dbal_cache_adapter_schema_listener" type="service_closure" id="doctrine.orm.listeners.doctrine_dbal_cache_adapter_schema_listener"/>
@@ -7207,6 +7524,7 @@
         <argument key="doctrine.orm.listeners.pdo_session_handler_schema_listener" type="service_closure" id="doctrine.orm.listeners.pdo_session_handler_schema_listener"/>
         <argument key="doctrine.orm.listeners.lock_store_schema_listener" type="service_closure" id="doctrine.orm.listeners.lock_store_schema_listener"/>
         <argument key="doctrine.orm.default_listeners.attach_entity_listeners" type="service_closure" id="doctrine.orm.default_listeners.attach_entity_listeners"/>
+        <argument key="turbo.doctrine.event_listener" type="service_closure" id="turbo.doctrine.event_listener"/>
       </argument>
     </service>
     <service id=".service_locator.H6e_jJ3" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -7734,6 +8052,7 @@
           </service>
         </argument>
       </argument>
+      <argument type="collection"/>
     </service>
     <service id="debug.security.access.decision_manager.inner" class="Symfony\Component\Security\Core\Authorization\AccessDecisionManager">
       <argument type="iterator">
@@ -7748,6 +8067,9 @@
     </service>
     <service id="debug.security.firewall.authenticator.main.inner" class="Symfony\Component\Security\Http\Firewall\AuthenticatorManagerListener">
       <argument type="service" id="security.authenticator.manager.main"/>
+    </service>
+    <service id="turbo.broadcaster.action_renderer.inner" class="Symfony\UX\Turbo\Broadcaster\ImuxBroadcaster">
+      <argument type="tagged_iterator" tag="turbo.broadcaster"/>
     </service>
     <service id="debug.security.event_dispatcher.main.inner" class="Symfony\Component\EventDispatcher\EventDispatcher"/>
     <service id=".doctrine.orm.default_metadata_driver.inner" class="Doctrine\Persistence\Mapping\Driver\MappingDriverChain">
@@ -8059,6 +8381,13 @@
       <argument>List outdated JavaScript packages and their latest versions</argument>
       <argument>false</argument>
       <argument type="service_closure" id="asset_mapper.importmap.command.outdated"/>
+    </service>
+    <service id=".console.command.mailer_test.lazy" class="Symfony\Component\Console\Command\LazyCommand">
+      <argument>mailer:test</argument>
+      <argument type="collection"/>
+      <argument>Test Mailer transports by sending an email</argument>
+      <argument>false</argument>
+      <argument type="service_closure" id="console.command.mailer_test"/>
     </service>
     <service id=".twig.command.debug.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>debug:twig</argument>
@@ -8375,7 +8704,7 @@
     </service>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <tag name="container.no_preload"/>
-      <argument type="service" id=".service_locator.tCOohuR"/>
+      <argument type="service" id=".service_locator.AqgeA68"/>
       <argument type="collection">
         <argument key="about">console.command.about</argument>
         <argument key="assets:install">console.command.assets_install</argument>
@@ -8420,6 +8749,7 @@
         <argument key="importmap:install">asset_mapper.importmap.command.install</argument>
         <argument key="importmap:audit">asset_mapper.importmap.command.audit</argument>
         <argument key="importmap:outdated">asset_mapper.importmap.command.outdated</argument>
+        <argument key="mailer:test">console.command.mailer_test</argument>
         <argument key="debug:twig">twig.command.debug</argument>
         <argument key="lint:twig">twig.command.lint</argument>
         <argument key="doctrine:database:create">doctrine.database_create_command</argument>
@@ -8486,7 +8816,7 @@
         <argument key="make:webhook">maker.auto_command.make_webhook</argument>
       </argument>
     </service>
-    <service id=".service_locator.tCOohuR" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.AqgeA68" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="console.command.about" type="service_closure" id=".console.command.about.lazy"/>
@@ -8532,6 +8862,7 @@
         <argument key="asset_mapper.importmap.command.install" type="service_closure" id=".asset_mapper.importmap.command.install.lazy"/>
         <argument key="asset_mapper.importmap.command.audit" type="service_closure" id=".asset_mapper.importmap.command.audit.lazy"/>
         <argument key="asset_mapper.importmap.command.outdated" type="service_closure" id=".asset_mapper.importmap.command.outdated.lazy"/>
+        <argument key="console.command.mailer_test" type="service_closure" id=".console.command.mailer_test.lazy"/>
         <argument key="twig.command.debug" type="service_closure" id=".twig.command.debug.lazy"/>
         <argument key="twig.command.lint" type="service_closure" id=".twig.command.lint.lazy"/>
         <argument key="doctrine.database_create_command" type="service_closure" id="doctrine.database_create_command"/>
@@ -8724,6 +9055,10 @@
     <service id="asset_mapper.http_client" alias=".debug.http_client"/>
     <service id="Symfony\Component\AssetMapper\ImportMap\ImportMapManager" alias="asset_mapper.importmap.manager"/>
     <service id="Symfony\Contracts\HttpClient\HttpClientInterface" alias=".debug.http_client"/>
+    <service id="mailer" alias="mailer.mailer"/>
+    <service id="Symfony\Component\Mailer\MailerInterface" alias="mailer.mailer"/>
+    <service id="mailer.default_transport" alias="mailer.transports"/>
+    <service id="Symfony\Component\Mailer\Transport\TransportInterface" alias="mailer.transports"/>
     <service id="Symfony\Component\Translation\Reader\TranslationReaderInterface" alias="translation.reader"/>
     <service id="Symfony\Component\Translation\Extractor\ExtractorInterface" alias="translation.extractor"/>
     <service id="Symfony\Component\Translation\Writer\TranslationWriterInterface" alias="translation.writer"/>
@@ -8777,6 +9112,7 @@
     <service id="Symfony\Component\Mime\MimeTypesInterface" alias="mime_types"/>
     <service id="Symfony\Component\Mime\MimeTypeGuesserInterface" alias="mime_types"/>
     <service id="Twig\Environment" alias="twig"/>
+    <service id="Symfony\Component\Mime\BodyRendererInterface" alias="twig.mime_body_renderer"/>
     <service id="Doctrine\DBAL\Connection" alias="doctrine.dbal.default_connection"/>
     <service id="Doctrine\Persistence\ManagerRegistry" alias="doctrine"/>
     <service id="Doctrine\Common\Persistence\ManagerRegistry" alias="doctrine"/>
@@ -8812,9 +9148,10 @@
     <service id="security.user_checker.main" alias="security.user_checker"/>
     <service id="security.firewall.context_locator" alias=".service_locator.bsoXAxw"/>
     <service id="Symfony\Component\Security\Core\User\UserCheckerInterface" alias="security.user_checker"/>
+    <service id="Symfony\UX\Turbo\Broadcaster\BroadcasterInterface" alias="turbo.broadcaster.action_renderer"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.pRu6x_4" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator._m5FxLV"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.JGNS.wf"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.BxSdgVt"/>
     <service id="Psr\Log\LoggerInterface" alias="logger"/>
@@ -8833,12 +9170,16 @@
     <service id="twig.error_renderer.html.inner" alias="error_handler.error_renderer.html"/>
     <service id="security.access.decision_manager" alias="debug.security.access.decision_manager"/>
     <service id="security.firewall.authenticator.main" alias="debug.security.firewall.authenticator.main"/>
+    <service id="turbo.broadcaster.imux" alias="turbo.broadcaster.action_renderer"/>
     <service id="security.event_dispatcher.main" alias="debug.security.event_dispatcher.main"/>
     <service id="doctrine.orm.default_metadata_driver" alias=".doctrine.orm.default_metadata_driver"/>
     <service id=".service_locator.n_ENPtW" alias=".service_locator.zHyJIs5"/>
     <service id=".service_locator.ngd_zfW" alias=".service_locator.n_LpSm1"/>
-    <service id=".service_locator.113K_6l" alias=".service_locator.KAWHxDW"/>
+    <service id=".service_locator.agzzP.L" alias=".service_locator.ojgjMmN"/>
+    <service id=".service_locator..vDk57s" alias=".service_locator.Jk.A8Hx"/>
+    <service id=".service_locator.Y54oFB4" alias=".service_locator.eR8LQuU"/>
     <service id=".service_locator.Nrz07Zz" alias=".service_locator.3QECKYg"/>
+    <service id=".service_locator.ze5hoyZ" alias=".service_locator..uQu1bZ"/>
     <service id=".service_locator.JGQPwcJ" alias=".service_locator.ZyP9f7K"/>
   </services>
 </container>

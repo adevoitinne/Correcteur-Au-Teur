@@ -2,6 +2,15 @@
 
 {% block body %}
 	<main aria-label="contenu principal" id="main" class="my-auto">
+		 {% if app.user and app.user.isVerified == false %}
+	        <div class="alert alert-warning alert-dismissible" role="alert">
+		    	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		    	<div class="alert-message">
+			    	<strong>Votre adresse email n'est pas confirmée</strong> :  <a href="{{ url('registration.resend-verif') }}">Renvoyer le lien de confirmation</a>
+		    	</div>
+	        </div>
+        {% endif %}
+		
 		<div class="container-fluid">
 			<h2 class="text-center subtitle ">C'est parti pour l'aventure Correc-Au-teur !</h2>
 			<p class="h4 text-center paragraph pb-5">Vous êtes dans l'espace privé. Seuls les membres y ont accès.</p>
