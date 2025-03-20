@@ -18,7 +18,7 @@
                             <th></th>
                         </tr>
                         {% for message in messages %}
-                            <tr>
+                            <tr  id="row_message_{{ message._id }}">
                                 <td>{{message.date['timestamp']|get_datetime_from_timestamp|date('d/m/y')}}</td>
                                 <td>{{message.firstname}}</td>
                                 <td>{{message.lastname}}</td>

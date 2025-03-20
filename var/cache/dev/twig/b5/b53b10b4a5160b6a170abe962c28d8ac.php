@@ -74,56 +74,53 @@ class __TwigTemplate_8ef510443e6d164459bd2c806e4c94d1 extends Template
 
         // line 4
         yield "\t<main aria-label=\"contenu principal\" id=\"main\">
-    \t<div class=\"container-fluid\">
+\t\t<div class=\"container-fluid\">
 \t\t\t<div class=\"row\">
 \t\t\t\t<div class=\"col\">
-                    <h2>Membres</h2>
-                    ";
+\t\t\t\t\t<h2>Membres</h2>
+\t\t\t\t\t";
         // line 9
         yield from $this->loadTemplate("_inc/notice.html.twig", "admin/member/index.html.twig", 9)->unwrap()->yield($context);
         // line 10
-        yield "                    <table class=\"table table-striped\">
-                        <tr>
-                            
-                            <th>Email</th> 
-                            
-                        </tr>
-                        ";
-        // line 16
+        yield "\t\t\t\t\t<table class=\"table table-striped\">
+\t\t\t\t\t\t<tr>
+\t\t\t\t\t\t\t<th>Email</th>
+\t\t\t\t\t\t</tr>
+\t\t\t\t\t\t";
+        // line 14
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["members"]) || array_key_exists("members", $context) ? $context["members"] : (function () { throw new RuntimeError('Variable "members" does not exist.', 16, $this->source); })()));
+        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["members"]) || array_key_exists("members", $context) ? $context["members"] : (function () { throw new RuntimeError('Variable "members" does not exist.', 14, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["member"]) {
-            // line 17
-            yield "                            <tr>
-                                
-                                <td>";
-            // line 19
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["member"], "email", [], "any", false, false, false, 19), "html", null, true);
+            // line 15
+            yield "\t\t\t\t\t\t\t<tr>
+\t\t\t\t\t\t\t\t<td>";
+            // line 16
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["member"], "email", [], "any", false, false, false, 16), "html", null, true);
             yield "</td>
-                                <td>
-                                    <a href=\"";
-            // line 21
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("admin.member.detail", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["member"], "id", [], "any", false, false, false, 21)]), "html", null, true);
+\t\t\t\t\t\t\t\t<td>
+\t\t\t\t\t\t\t\t\t<a href=\"";
+            // line 18
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("admin.member.detail", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["member"], "id", [], "any", false, false, false, 18)]), "html", null, true);
             yield "\" class=\"btn btn-secondary\">Consult</a>
-                                    <a href=\"";
-            // line 22
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("admin.member.remove", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["member"], "id", [], "any", false, false, false, 22)]), "html", null, true);
+\t\t\t\t\t\t\t\t\t<a href=\"";
+            // line 19
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("admin.member.remove", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["member"], "id", [], "any", false, false, false, 19)]), "html", null, true);
             yield "\" class=\"btn btn-danger\">Remove</a>
-                                </td>
-                            </tr>    
-                        ";
+\t\t\t\t\t\t\t\t</td>
+\t\t\t\t\t\t\t</tr>
+\t\t\t\t\t\t";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['member'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 26
-        yield "                    </table>
-                    <p>
-\t\t\t\t        <a href=\"";
-        // line 28
+        // line 23
+        yield "\t\t\t\t\t</table>
+\t\t\t\t\t<p>
+\t\t\t\t\t\t<a href=\"";
+        // line 25
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("admin.homepage.index");
         yield "\" class=\"btn btn-secondary\">Retour à l'Espace administration</a>
-\t\t\t        </p>
+\t\t\t\t\t</p>
 \t\t\t\t</div>
 \t\t\t</div>
 \t\t</div>
@@ -159,7 +156,7 @@ class __TwigTemplate_8ef510443e6d164459bd2c806e4c94d1 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  124 => 28,  120 => 26,  110 => 22,  106 => 21,  101 => 19,  97 => 17,  93 => 16,  85 => 10,  83 => 9,  76 => 4,  63 => 3,  40 => 1,);
+        return array (  121 => 25,  117 => 23,  107 => 19,  103 => 18,  98 => 16,  95 => 15,  91 => 14,  85 => 10,  83 => 9,  76 => 4,  63 => 3,  40 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -168,37 +165,35 @@ class __TwigTemplate_8ef510443e6d164459bd2c806e4c94d1 extends Template
 
 {% block body %}
 \t<main aria-label=\"contenu principal\" id=\"main\">
-    \t<div class=\"container-fluid\">
+\t\t<div class=\"container-fluid\">
 \t\t\t<div class=\"row\">
 \t\t\t\t<div class=\"col\">
-                    <h2>Membres</h2>
-                    {% include '_inc/notice.html.twig' %}
-                    <table class=\"table table-striped\">
-                        <tr>
-                            
-                            <th>Email</th> 
-                            
-                        </tr>
-                        {% for member in members %}
-                            <tr>
-                                
-                                <td>{{member.email}}</td>
-                                <td>
-                                    <a href=\"{{ url('admin.member.detail', { id: member.id }) }}\" class=\"btn btn-secondary\">Consult</a>
-                                    <a href=\"{{ url('admin.member.remove', { id: member.id }) }}\" class=\"btn btn-danger\">Remove</a>
-                                </td>
-                            </tr>    
-                        {% endfor %}
-                    </table>
-                    <p>
-\t\t\t\t        <a href=\"{{ url('admin.homepage.index') }}\" class=\"btn btn-secondary\">Retour à l'Espace administration</a>
-\t\t\t        </p>
+\t\t\t\t\t<h2>Membres</h2>
+\t\t\t\t\t{% include '_inc/notice.html.twig' %}
+\t\t\t\t\t<table class=\"table table-striped\">
+\t\t\t\t\t\t<tr>
+\t\t\t\t\t\t\t<th>Email</th>
+\t\t\t\t\t\t</tr>
+\t\t\t\t\t\t{% for member in members %}
+\t\t\t\t\t\t\t<tr>
+\t\t\t\t\t\t\t\t<td>{{member.email}}</td>
+\t\t\t\t\t\t\t\t<td>
+\t\t\t\t\t\t\t\t\t<a href=\"{{ url('admin.member.detail', { id: member.id }) }}\" class=\"btn btn-secondary\">Consult</a>
+\t\t\t\t\t\t\t\t\t<a href=\"{{ url('admin.member.remove', { id: member.id }) }}\" class=\"btn btn-danger\">Remove</a>
+\t\t\t\t\t\t\t\t</td>
+\t\t\t\t\t\t\t</tr>
+\t\t\t\t\t\t{% endfor %}
+\t\t\t\t\t</table>
+\t\t\t\t\t<p>
+\t\t\t\t\t\t<a href=\"{{ url('admin.homepage.index') }}\" class=\"btn btn-secondary\">Retour à l'Espace administration</a>
+\t\t\t\t\t</p>
 \t\t\t\t</div>
 \t\t\t</div>
 \t\t</div>
 \t</main>
 {% endblock %}
 
-{# à compléter quand member complet #}", "admin/member/index.html.twig", "/Volumes/T7 Shield/dossier-de-travail/templates/admin/member/index.html.twig");
+{# à compléter quand member complet #}
+", "admin/member/index.html.twig", "/Volumes/T7 Shield/dossier-de-travail/templates/admin/member/index.html.twig");
     }
 }

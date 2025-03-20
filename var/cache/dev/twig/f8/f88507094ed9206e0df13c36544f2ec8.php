@@ -78,54 +78,51 @@ class __TwigTemplate_83d81e2f00050fa43da9b4753bd2a9c8 extends Template
 \t\t\t<div class=\"row\">
 \t\t\t\t<div class=\"col\">
                     <h2>Messages de contact</h2>
-
-                     ";
+                    ";
+        // line 9
+        yield from $this->loadTemplate("_inc/notice.html.twig", "admin/contact/index.html.twig", 9)->unwrap()->yield($context);
         // line 10
-        yield from $this->loadTemplate("_inc/notice.html.twig", "admin/contact/index.html.twig", 10)->unwrap()->yield($context);
-        // line 11
-        yield "
-                    <table class=\"table table-striped\">
+        yield "                    <table class=\"table table-striped\">
                         <tr>
                             <th>Date</th>
                             <th>Prénom</th>
                             <th>Nom</th>
                             <th>Email</th>
                             ";
-        // line 19
+        // line 17
         yield "                            <th>Message</th>
                             <th></th>
                         </tr>
                         ";
-        // line 22
+        // line 20
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["messages"]) || array_key_exists("messages", $context) ? $context["messages"] : (function () { throw new RuntimeError('Variable "messages" does not exist.', 22, $this->source); })()));
+        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["messages"]) || array_key_exists("messages", $context) ? $context["messages"] : (function () { throw new RuntimeError('Variable "messages" does not exist.', 20, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["message"]) {
-            // line 23
+            // line 21
             yield "                            <tr>
                                 <td>";
+            // line 22
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate($this->env->getRuntime('App\Twig\Runtime\AppExtensionRuntime')->getDatetimeFromTimestamp(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["message"], "date", [], "any", false, false, false, 22), "timestamp", [], "array", false, false, false, 22)), "d/m/y"), "html", null, true);
+            yield "</td>
+                                <td>";
+            // line 23
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["message"], "firstname", [], "any", false, false, false, 23), "html", null, true);
+            yield "</td>
+                                <td>";
             // line 24
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate($this->env->getRuntime('App\Twig\Runtime\AppExtensionRuntime')->getDatetimeFromTimestamp(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["message"], "date", [], "any", false, false, false, 24), "timestamp", [], "array", false, false, false, 24)), "d/m/y"), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["message"], "lastname", [], "any", false, false, false, 24), "html", null, true);
             yield "</td>
                                 <td>";
             // line 25
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["message"], "firstname", [], "any", false, false, false, 25), "html", null, true);
-            yield "</td>
-                                <td>";
-            // line 26
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["message"], "lastname", [], "any", false, false, false, 26), "html", null, true);
-            yield "</td>
-                                <td>";
-            // line 27
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["message"], "email", [], "any", false, false, false, 27), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["message"], "email", [], "any", false, false, false, 25), "html", null, true);
             yield "</td>
                                 ";
-            // line 29
+            // line 27
             yield "                                <td>";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["message"], "message", [], "any", false, false, false, 29), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["message"], "message", [], "any", false, false, false, 27), "html", null, true);
             yield "</td>
                                 <td>
                                     <button data-bs-toggle=\"modal\" data-bs-target=\"#removeModal\" class=\"btn btn-danger\">Remove</button>
-
                                     <div class=\"modal fade\" id=\"removeModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"ModalLabel\" aria-hidden=\"true\">
                                         <div class=\"modal-dialog\" role=\"document\">
                                             <div class=\"modal-content\">
@@ -141,8 +138,8 @@ class __TwigTemplate_83d81e2f00050fa43da9b4753bd2a9c8 extends Template
                                                 <div class=\"modal-footer\">
                                                     <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Annuler</button>
                                                     <a class=\"btn btn-primary\" href=\"";
-            // line 47
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("admin.contact.remove", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["message"], "_id", [], "any", false, false, false, 47)]), "html", null, true);
+            // line 44
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("admin.contact.remove", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["message"], "_id", [], "any", false, false, false, 44)]), "html", null, true);
             yield "\">Oui, supprimer</a>
                                                 </div>
                                             </div>
@@ -155,11 +152,11 @@ class __TwigTemplate_83d81e2f00050fa43da9b4753bd2a9c8 extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['message'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 55
+        // line 52
         yield "                    </table>
                     <p>
 \t\t\t\t        <a href=\"";
-        // line 57
+        // line 54
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("admin.homepage.index");
         yield "\" class=\"btn btn-secondary\">Retour à l'Espace administration</a>
 \t\t\t        </p>
@@ -167,10 +164,6 @@ class __TwigTemplate_83d81e2f00050fa43da9b4753bd2a9c8 extends Template
 \t\t\t</div>
 \t\t</div>
 \t</main>
-
-
-
-
 ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -202,7 +195,7 @@ class __TwigTemplate_83d81e2f00050fa43da9b4753bd2a9c8 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  163 => 57,  159 => 55,  145 => 47,  123 => 29,  119 => 27,  115 => 26,  111 => 25,  107 => 24,  104 => 23,  100 => 22,  95 => 19,  86 => 11,  84 => 10,  76 => 4,  63 => 3,  40 => 1,);
+        return array (  160 => 54,  156 => 52,  142 => 44,  121 => 27,  117 => 25,  113 => 24,  109 => 23,  105 => 22,  102 => 21,  98 => 20,  93 => 17,  85 => 10,  83 => 9,  76 => 4,  63 => 3,  40 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -215,9 +208,7 @@ class __TwigTemplate_83d81e2f00050fa43da9b4753bd2a9c8 extends Template
 \t\t\t<div class=\"row\">
 \t\t\t\t<div class=\"col\">
                     <h2>Messages de contact</h2>
-
-                     {% include \"_inc/notice.html.twig\" %}
-
+                    {% include \"_inc/notice.html.twig\" %}
                     <table class=\"table table-striped\">
                         <tr>
                             <th>Date</th>
@@ -238,7 +229,6 @@ class __TwigTemplate_83d81e2f00050fa43da9b4753bd2a9c8 extends Template
                                 <td>{{message.message}}</td>
                                 <td>
                                     <button data-bs-toggle=\"modal\" data-bs-target=\"#removeModal\" class=\"btn btn-danger\">Remove</button>
-
                                     <div class=\"modal fade\" id=\"removeModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"ModalLabel\" aria-hidden=\"true\">
                                         <div class=\"modal-dialog\" role=\"document\">
                                             <div class=\"modal-content\">
@@ -269,10 +259,6 @@ class __TwigTemplate_83d81e2f00050fa43da9b4753bd2a9c8 extends Template
 \t\t\t</div>
 \t\t</div>
 \t</main>
-
-
-
-
 {% endblock %}", "admin/contact/index.html.twig", "/Volumes/T7 Shield/dossier-de-travail/templates/admin/contact/index.html.twig");
     }
 }

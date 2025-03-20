@@ -23,10 +23,10 @@ class RegistrationFormType extends AbstractType
             ->add('email', EmailType::class, [
                 'constraints' => [
 					new NotBlank([
-						'message' => 'Email is required'
+						'message' => 'Saisissez obligatoirement votre email'
 					]),
 					new Email([
-						'message' => 'Email format is wrong'
+						'message' => "Le format de l'email est erroné"
 					])
 				],
             ])
@@ -34,7 +34,7 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devez approuver les conditions générales',
                     ]),
                 ],
             ])
@@ -42,19 +42,18 @@ class RegistrationFormType extends AbstractType
                 'toggle' => true,
                 // idem login, code html modifié mais les icônes ne s'affichent pas
                 'mapped' => false,
-                // 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Saisissez obligatoirement un mot de passe',
                     ]),
                     new Length([
                         'min' => 8,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Votre mot de passe doit, au minimum, contenir  {{ limit }} caractères',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ],
-                //  il faudra mettre une contrainte sur le format                
+                //  il faudra mettre une contrainte sur le format :  16 caractères ? et exp.rationnelle              
             ])
         ;
     }
