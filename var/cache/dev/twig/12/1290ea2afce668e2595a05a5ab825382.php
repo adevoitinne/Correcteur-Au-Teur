@@ -120,7 +120,7 @@ class __TwigTemplate_ab2dd8cf337c2264dfe7c0853578ee07 extends Template
 \t\t\t\t\t<a href=\"";
         // line 27
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("profile.myprofile.form");
-        yield "\" class=\"btn button btn-secondary\">Modifier mon profil</a>
+        yield "\" class=\"btn button btn-secondary\">Retour à mon profil</a>
 \t\t\t\t</p>
 \t\t\t</div>
 \t\t</div>
@@ -187,7 +187,7 @@ class __TwigTemplate_ab2dd8cf337c2264dfe7c0853578ee07 extends Template
 \t\t\t\t</div>
 \t\t\t\t<p>
 \t\t\t\t\t<a href=\"{{ url('profile.homepage.index') }}\" class=\"btn button btn-secondary\">Retour au menu</a>
-\t\t\t\t\t<a href=\"{{ url('profile.myprofile.form') }}\" class=\"btn button btn-secondary\">Modifier mon profil</a>
+\t\t\t\t\t<a href=\"{{ url('profile.myprofile.form') }}\" class=\"btn button btn-secondary\">Retour à mon profil</a>
 \t\t\t\t</p>
 \t\t\t</div>
 \t\t</div>

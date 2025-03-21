@@ -55,7 +55,7 @@ class RegistrationController extends AbstractController
                 compact('user', 'token')
             );
 
-            $this->addFlash('notice', 'Utilisateur inscrit, veuillez cliquer sur le lien reçu dans votre boîte mail pour confirmer votre adresse e-mail');
+            $this->addFlash('notice', 'Utilisateur inscrit, veuillez cliquer sur le lien reçu dans votre boîte mail pour confirmer votre adresse e-mail. Vous pouvez fermer cet onglet.');
             return $this->redirectToRoute('security.login');
         }
 

@@ -71,6 +71,7 @@ class ContactType extends AbstractType
 					]),
 				],
 			]);
+			// si j'ajoute une contrainte de longueur, il faudra que je la teste dasn le deuxième test de ContactTypeTest
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -218,10 +218,6 @@ footer{
     text-decoration: none;
 }
 
-.separation{
-    border-right: solid .2rem black;  
-}
-
 @media screen and (max-width: 62rem) {   
     .top{
         grid-template: 4rem/ 1fr 2fr 1fr; 

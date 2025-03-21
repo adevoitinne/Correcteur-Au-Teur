@@ -45,7 +45,7 @@ class __TwigTemplate_26aaa954285345c367cf0208477227a2 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "emails/register.html.twig"));
 
         // line 1
-        yield "<h1>Activation de votre profil sur le site Correct-Au-Teur</h1>
+        yield "<h2>Activation de votre profil sur le site Correct-Au-Teur</h2>
 <p>Bonjour ";
         // line 2
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new RuntimeError('Variable "user" does not exist.', 2, $this->source); })()), "email", [], "any", false, false, false, 2), "html", null, true);
@@ -59,7 +59,7 @@ class __TwigTemplate_26aaa954285345c367cf0208477227a2 extends Template
         yield "\">Lien</a></p>
 <p>Ce lien expirera dans 3 heures</p>
 <p>Merci</p>
-<p>L'équipe Correct-Au-Teur</p>";
+<p>L'équipe <strong class=\"c-a-t h3\">Correct-Au-Teur</strong></p>";
         
         $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
 
@@ -95,13 +95,13 @@ class __TwigTemplate_26aaa954285345c367cf0208477227a2 extends Template
 
     public function getSourceContext(): Source
     {
-        return new Source("<h1>Activation de votre profil sur le site Correct-Au-Teur</h1>
+        return new Source("<h2>Activation de votre profil sur le site Correct-Au-Teur</h2>
 <p>Bonjour {{ user.email }}</p>
 {# mettre le prénom quand profil complet #}
 <p>Pour activer votre profil, veuillez cliquer sur le lien ci-dessous.</p>
 <p><a href=\"{{ absolute_url(path('registration.verify-user', {token: token})) }}\">Lien</a></p>
 <p>Ce lien expirera dans 3 heures</p>
 <p>Merci</p>
-<p>L'équipe Correct-Au-Teur</p>", "emails/register.html.twig", "/Volumes/T7 Shield/dossier-de-travail/templates/emails/register.html.twig");
+<p>L'équipe <strong class=\"c-a-t h3\">Correct-Au-Teur</strong></p>", "emails/register.html.twig", "/Volumes/T7 Shield/dossier-de-travail/templates/emails/register.html.twig");
     }
 }
