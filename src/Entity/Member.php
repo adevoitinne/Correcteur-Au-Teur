@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-
+use Symfony\Component\Validator\Constraints\Length;
 
 #[ORM\Entity(repositoryClass: MemberRepository::class)]
 #[ORM\Table(name: '`member`')]
@@ -47,8 +47,13 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length:125)]
     private ?string $lastname = null;
 
-    #[ORM\Column(type: Types::DATE_IMMUTABLE , nullable:true )]
-    private ?\DateTimeImmutable $birth_at = null;
+    // #[ORM\Column(type: Types::DATE_IMMUTABLE , nullable:true )]
+    // ou
+    // #[ORM\Column(nullable:true )]
+    // private ?\DateTimeImmutable $birth_at = null;
+
+    #[ORM\Column(nullable:true )]
+    private ?string $birth_at = null;
 
     #[ORM\Column()]
     private ?string $contact_network = null;
@@ -66,25 +71,26 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $artwork_type = null;
 
     #[ORM\Column()]
-    private ?string $genres = null;
+    private ?array $genres = null;
 
     /**
      * @var Collection<int, Interest>
      */
+   
     #[ORM\ManyToMany(targetEntity: Interest::class, inversedBy: 'members')]
     private Collection $interests;
 
     /**
-     * @var Collection<int, Request>
+     * @var Collection<int, Offer>
      */
-    #[ORM\OneToMany(targetEntity: Request::class, mappedBy: 'member', orphanRemoval: true)]
-    private Collection $requests;
+    #[ORM\OneToMany(targetEntity: Offer::class, mappedBy: 'member', orphanRemoval: true)]
+    private Collection $offers;
 
     
     public function __construct()
     {
         $this->interests = new ArrayCollection();
-        $this->requests = new ArrayCollection();
+        $this->offers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -197,12 +203,25 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getBirthAt(): ?\DateTimeImmutable
+    // public function getBirthAt(): ?\DateTimeImmutable
+    // {
+    //     return $this->birth_at;
+    // }
+
+    // public function setBirthAt(\DateTimeImmutable $birth_at)
+    // {
+    //     $this->birth_at = $birth_at;
+
+    //     return $this;
+    // }
+
+    // date en string en attendant
+    public function getBirthAt(): ?string
     {
         return $this->birth_at;
     }
 
-    public function setBirthAt(\DateTimeImmutable $birth_at)
+    public function setBirthAt(string $birth_at)
     {
         $this->birth_at = $birth_at;
 
@@ -269,18 +288,18 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getGenres(): ?string
+    public function getGenres(): ?array
     {
         return $this->genres;
     }
 
-    public function setGenres(string $genres)
+    public function setGenres(array $genres)
     {
         $this->genres = $genres;
 
         return $this;
     }
-
+    
     /**
      * @return Collection<int, Interest>
      */
@@ -306,33 +325,32 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Request>
+     * @return Collection<int, Offer>
      */
-    public function getRequests(): Collection
+    public function Offers(): Collection
     {
-        return $this->requests;
+        return $this->offers;
     }
 
-    public function addRequest(Request $request): static
+    public function addOffer(Offer $offer): static
     {
-        if (!$this->requests->contains($request)) {
-            $this->requests->add($request);
-            $request->setMember($this);
+        if (!$this->offers->contains($offer)) {
+            $this->offers->add($offer);
+            $offer->setMember($this);
         }
 
         return $this;
     }
 
-    public function removeRequest(Request $request): static
+    public function removeOffer(Offer $offer): static
     {
-        if ($this->requests->removeElement($request)) {
+        if ($this->offers->removeElement($offer)) {
             // set the owning side to null (unless already changed)
-            if ($request->getMember() === $this) {
-                $request->setMember(null);
+            if ($offer->getMember() === $this) {
+                $offer->setMember(null);
             }
         }
 
         return $this;
     }
-    
 }

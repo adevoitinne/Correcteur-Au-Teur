@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<main aria-label="contenu principal" id="main">
+    	<div class="container-fluid">
+			<h2 class="text-center subtitle ">Ma Demande de correction</h2>
+            {% include "_inc/notice.html.twig" %}
+            <p class="">
+                <a href="{{ url('profile.myoffer.index') }}" class="btn button btn-secondary">Retour à mes demandes</a>       
+            </p>
+			{{ form_start(form, { attr: { novalidate: 'novalidate', aria_label:"formulaire de demande de correction" } }) }} 
+                <fieldset class="row justify-content-between" aria-label="Veuillez renseigner les informations concernant votre manuscrit">
+                <legend>Mon manuscrit :</legend>
+                    <div class="col-md-4 col-sm-12">    
+                        {{ form_label(form.type, "Type d'œuvre :", { label_attr: { class:'form-label'} }) }}
+                        {{ form_widget(form.type, { attr: { class:'form-control', aria_label:"Quel est le type d'œuvre ?"} }) }}
+                        {{ form_errors(form.type, { attr: { class:'text-danger'} }) }}
+                    </div>        
+                    <div class="col-md-4 col-sm-12">    
+                        {{ form_label(form.deadline, 'Echéance envisagée :', { label_attr: { class:'form-label', } }) }}
+                        {{ form_widget(form.deadline, { attr: { class:'form-control', aria_label:"Veuillez  renseigner l'échéance envisagée", placeholder:'jj/mm/aaaa'} }) }}
+                        {{ form_errors(form.deadline, { attr: { class:'text-danger'} }) }}  
+                    </div>
+                    <div class="col-12">    
+                        {{ form_label(form.genres, 'Genre(s) :', { label_attr: { class:'form-label'} }) }}
+                        {{ form_widget(form.genres, { attr: { class:'form-control d-flex align-items-baseline flex-wrap gap-4', aria_label:"Veuillez indiquer le(s) genre(s) de l'œuvre ?"} }) }}
+                        {{ form_errors(form.genres, { attr: { class:'text-danger'} }) }}
+                    </div> 
+                </fieldset>
+                <fieldset class="row justify-content-between" aria-label="Veuillez renseigner le titre et la description de votre manuscrit">
+                <legend>Titre et Descrption succinte :</legend>
+                    <div class="col-md-12 col-sm-12">    
+                        {{ form_label(form.title, "Titre :", { label_attr: { class:'form-label'} }) }}
+                        {{ form_widget(form.title, { attr: { class:'form-control', aria_label:"Quel est le titre ?"} }) }}
+                        {{ form_errors(form.title, { attr: { class:'text-danger'} }) }}
+                    </div>        
+                    <div class="col-12">    
+                        {{ form_label(form.description, "Description :", { label_attr: { class:'form-label'} }) }}
+                        {{ form_widget(form.description, { attr: { class:'form-control', aria_label:"Veuillez indiquer la description ?"} }) }}
+                        {{ form_errors(form.description, { attr: { class:'text-danger'} }) }}
+                    </div> 
+                </fieldset>    
+                <div class="row justify-content-end">
+                    
+                    <button type="submit" class="col-auto btn button btn-secondary btn-submit">Valider</button>
+                     
+                </div>
+			{{ form_end(form) }}
+			</div>
+		</div>
+	</main>
+{% endblock %}

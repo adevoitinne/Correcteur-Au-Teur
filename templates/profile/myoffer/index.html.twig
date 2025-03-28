@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<main aria-label="contenu principal" id="main">
+    	<div class="container-fluid">
+			<h2 class="text-center subtitle ">Mes Demandes</h2>
+            {% include "_inc/notice.html.twig" %}
+			<div class="row">
+				<div class="col-md-12 col-sm-12">
+				<p>
+				    <a href="{{ url('profile.myoffer.form') }}" class="button btn btn-secondary">Créer une nouvelle demande</a> 
+			    </p>
+                <table class="table table-bordered table-hover table-responsive">
+                    <tr class="table-secondary">
+                        <th class="text-center">Numéro</th>
+                        {# <th class="text-center">Date de création</th> #}
+                        <th class="text-center">Titre</th>
+                        <th class="text-center">Description</th>
+
+                        <th>Actions</th>
+                    </tr>                                            
+                    {% for offer in offers %}
+                        <tr>
+                            <td class="text-center">{{offer.id}}</td>
+                            {# <td class="text-center">{{offer.created_at|date('dd/mm/yy')}}</td> #}
+                            <td class="text-center">{{offer.title}}</td>
+                            <td class="text-center">{{offer.description}}</td>
+                            <td>
+                            <a href="{{ url('profile.myoffer.form.update', { id: offer.id }) }}" class="button btn btn-secondary">Consulter/Modifier</a>
+                            <button data-bs-toggle="modal" data-bs-target="#removeModal" class="btn btn-danger p-2">Supprimer</button>
+
+                            <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header d-flex justify-content-between">
+                                            <h5 class="modal-title" id="ModalLabel">Confirmation de suppression</h5>
+                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Annuler">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Cette action est définitive. Vous ne pourrez pas récupérer la demande supprimée.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                                <a class="btn btn-primary" href="{{ url('profile.myoffer.remove', { id: offer.id }) }}">Oui, supprimer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>   
+                            </td>
+                        </tr>    
+                    {% endfor %} 
+                </table>
+			</div>
+                <p>
+				    <a href="{{ url('profile.homepage.index') }}" class="button btn btn-secondary">Retour au menu</a> 
+			    </p>
+			</div>
+		</div>
+	</main>
+{% endblock %}

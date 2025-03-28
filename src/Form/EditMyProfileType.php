@@ -34,7 +34,6 @@ class EditMyProfileType extends AbstractType
 					])
 				],
             ])
-            // ->add('roles')
             ->add('firstname', TextType::class, [
 				'constraints' => [
 					new NotBlank([
@@ -63,14 +62,17 @@ class EditMyProfileType extends AbstractType
 			])
             // ->add('birth_at', DateType::class, [
             //     'widget' => 'single_text',
+	        //     'format' => 'dd/mm/yyyy',
+            //     'html5' => false,
+	        //     'input' => 'datetime_immutable',
             //     'constraints' => [
             //         new Date([
             //             'message' => "Le format de la date de naissance est erroné"
             //         ]),
             //     ],
             // ])
-
-// cela me renvoit une erreur :  Expected argument of type "DateTimeImmutable", "null" given at property path "birth_at". A creuser +tard
+// TextType et type string dans Member.php en attendant de régler le probème de la saisie d'une date alors que le formulaire me met un message d'erreur : doit être de type string
+            ->add('birth_at',  TextType::class)
 
 
             ->add('contact_network',  TextType::class, [
@@ -97,40 +99,41 @@ class EditMyProfileType extends AbstractType
             ->add('is_published', CheckboxType::class)
             ->add('is_self_published', CheckboxType::class)
             ->add('artwork_type', ChoiceType::class, [
-                'multiple' => true,
-                'expanded' => true,
+                'multiple' => false,
+                'expanded' => false,
                 'choices' => [
                     'Roman' => 'Roman',
                     'Nouvelle' => 'Nouvelle',
                     'Poème' => 'Poème',
                     'Théâtre' => 'Théâtre',
-                    'Essai' =>'Essai']
+                    'Essai' =>'Essai'],
+                'placeholder' => "Type d'œuvre"
             ])
-            // ->add('genres',  ChoiceType::class, [
-            //     'multiple' => true,
-            //     'expanded' => true,
-            //     'choices' => [
-            //         'Comédie' => 'Comédie',
-            //         'Drame' => 'Drame',
-            //         'Polar' => 'Polar',
-            //         'Thriller' => 'Thriller',
-            //         'Feel Good' =>'Feel Good',
-            //         'Cosy Mystery' => 'Cosy Mystery',
-            //         'Romance' => 'Romance',
-            //         'Historique' => 'Historique',
-            //         '(Auto)biographie' => '(Auto)biographie',
-            //         'Fantasy' =>'Fantasy',
-            //         'Récit de voyage' => 'Récit de voyage',
-            //         'Non-fiction' => 'Non-fiction',
-            //         'Autre' => 'Autre'],
-            //     'choice_attr' => [
-            //         'Feel Good' =>['style'=>'font-style: italic'],
-            //         'Cosy Mystery' => ['style'=>'font-style: italic'],
-            //         'Fantasy' =>['style'=>'font-style: italic']]
-                
-            // ])
-// cela me renvoit une erreur :  Unable to transform value for property path "genres": Expected an array. Je ne vois pas de différence avec ce que j'ai fait pour artworktype.  A creuser +tard
-
+            ->add('genres',  ChoiceType::class, [
+                'multiple' => true,
+                'expanded' => true,
+                'choices' => [
+                    'Comédie' => 'Comédie',
+                    'Drame' => 'Drame',
+                    'Polar' => 'Polar',
+                    'Thriller' => 'Thriller',
+                    'Feel Good' =>'Feel Good',
+                    'Cosy Mystery' => 'Cosy Mystery',
+                    'Romance' => 'Romance',
+                    'Historique' => 'Historique',
+                    '(Auto)biographie' => '(Auto)biographie',
+                    'Fantasy' =>'Fantasy',
+                    'Récit de voyage' => 'Récit de voyage',
+                    'Non-fiction' => 'Non-fiction',
+                    'SF/Anticipation' => 'SF/Anticipation',
+                    'Autre' => 'Autre'],
+                // 'choice_attr' => [
+                //     'Feel Good' =>['style'=>'font-style: italic'],
+                //     'Cosy Mystery' => ['style'=>'font-style: italic'],
+                //     'Fantasy' =>['style'=>'font-style: italic']],        
+            // Ne fonctionne pas 
+            ])
+            
             ->add('interests', EntityType::class, [
                 'class' => Interest::class,
                 'choice_label' => 'name',

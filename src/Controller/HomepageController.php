@@ -17,8 +17,6 @@ class HomepageController extends AbstractController
     #[Route('/', name: 'homepage.index', methods:['GET'])]
     public function index():Response
     {          
-        // dd($this->mongoDBDatabase->connect());
-
         return $this->render('homepage/index.html.twig');
     }
 }

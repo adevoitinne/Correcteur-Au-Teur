@@ -391,6 +391,16 @@
         <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\Profile\HomepageController"/>
       </call>
     </service>
+    <service id="App\Controller\Profile\MyOfferController" class="App\Controller\Profile\MyOfferController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <argument type="service" id="App\Repository\OfferRepository"/>
+      <argument type="service" id="request_stack"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\Profile\MyOfferController"/>
+      </call>
+    </service>
     <service id="App\Controller\Profile\MyProfileController" class="App\Controller\Profile\MyProfileController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -400,13 +410,14 @@
         <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\Profile\MyProfileController"/>
       </call>
     </service>
-    <service id="App\Controller\Profile\MyRequestController" class="App\Controller\Profile\MyRequestController" public="true" autowire="true" autoconfigure="true">
+    <service id="App\Controller\Profile\OfferController" class="App\Controller\Profile\OfferController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
+      <argument type="service" id="App\Repository\OfferRepository"/>
       <argument type="service" id="request_stack"/>
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
       <call method="setContainer">
-        <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\Profile\MyRequestController"/>
+        <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\Profile\OfferController"/>
       </call>
     </service>
     <service id="App\Controller\RegistrationController" class="App\Controller\RegistrationController" public="true" autowire="true" autoconfigure="true">
@@ -433,12 +444,18 @@
         <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\TechnicalSupportController"/>
       </call>
     </service>
+    <service id="App\DataFixtures\GenreFixtures" class="App\DataFixtures\GenreFixtures" autowire="true" autoconfigure="true">
+      <tag name="doctrine.fixture.orm"/>
+    </service>
     <service id="App\DataFixtures\InterestFixtures" class="App\DataFixtures\InterestFixtures" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
     </service>
     <service id="App\DataFixtures\MemberFixtures" class="App\DataFixtures\MemberFixtures" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
       <argument type="service" id="security.user_password_hasher"/>
+    </service>
+    <service id="App\DataFixtures\OfferFixtures" class="App\DataFixtures\OfferFixtures" autowire="true" autoconfigure="true">
+      <tag name="doctrine.fixture.orm"/>
     </service>
     <service id="App\Form\ContactType" class="App\Form\ContactType" autowire="true" autoconfigure="true">
       <tag name="form.type" csrf_token_id="%.form.type_extension.csrf.token_id%"/>
@@ -450,6 +467,9 @@
       <tag name="form.type" csrf_token_id="%.form.type_extension.csrf.token_id%"/>
     </service>
     <service id="App\Form\MemberType" class="App\Form\MemberType" autowire="true" autoconfigure="true">
+      <tag name="form.type" csrf_token_id="%.form.type_extension.csrf.token_id%"/>
+    </service>
+    <service id="App\Form\OfferType" class="App\Form\OfferType" autowire="true" autoconfigure="true">
       <tag name="form.type" csrf_token_id="%.form.type_extension.csrf.token_id%"/>
     </service>
     <service id="App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" autoconfigure="true">
@@ -471,6 +491,11 @@
     <service id="App\Repository\MemberRepository" class="App\Repository\MemberRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\OfferRepository" class="App\Repository\OfferRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+      <argument type="service" id="parameter_bag"/>
     </service>
     <service id="App\Security\MainAuthenticator" class="App\Security\MainAuthenticator" autowire="true" autoconfigure="true">
       <argument type="service" id="router.default"/>
@@ -1264,6 +1289,7 @@
         <argument>App\Form\EditMyPasswordType</argument>
         <argument>App\Form\EditMyProfileType</argument>
         <argument>App\Form\MemberType</argument>
+        <argument>App\Form\OfferType</argument>
         <argument>App\Form\RegistrationFormType</argument>
         <argument>App\Form\ResetPasswordRequestType</argument>
         <argument>App\Form\ResetPasswordType</argument>
@@ -3690,7 +3716,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension">
-      <argument type="service" id=".service_locator..0p0Y7y"/>
+      <argument type="service" id=".service_locator.ZKcRp5N"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -3793,6 +3819,7 @@
         <argument key="App\Form\EditMyPasswordType">submit</argument>
         <argument key="App\Form\EditMyProfileType">submit</argument>
         <argument key="App\Form\MemberType">submit</argument>
+        <argument key="App\Form\OfferType">submit</argument>
         <argument key="App\Form\RegistrationFormType">submit</argument>
         <argument key="App\Form\ResetPasswordRequestType">submit</argument>
         <argument key="App\Form\ResetPasswordType">submit</argument>
@@ -5299,7 +5326,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.H6e_jJ3"/>
+      <argument type="service" id=".service_locator.dZ9KWL4"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -6529,11 +6556,19 @@
       <call method="addFixtures">
         <argument type="collection">
           <argument type="collection">
+            <argument key="fixture" type="service" id="App\DataFixtures\GenreFixtures"/>
+            <argument key="groups" type="collection"/>
+          </argument>
+          <argument type="collection">
             <argument key="fixture" type="service" id="App\DataFixtures\InterestFixtures"/>
             <argument key="groups" type="collection"/>
           </argument>
           <argument type="collection">
             <argument key="fixture" type="service" id="App\DataFixtures\MemberFixtures"/>
+            <argument key="groups" type="collection"/>
+          </argument>
+          <argument type="collection">
+            <argument key="fixture" type="service" id="App\DataFixtures\OfferFixtures"/>
             <argument key="groups" type="collection"/>
           </argument>
         </argument>
@@ -6636,12 +6671,15 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Profile\HomepageController" class="App\Controller\Profile\HomepageController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Profile\HomepageController" class="App\Controller\Profile\HomepageController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Profile\HomepageController" class="App\Controller\Profile\HomepageController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Profile\MyOfferController" class="App\Controller\Profile\MyOfferController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Profile\MyOfferController" class="App\Controller\Profile\MyOfferController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\Profile\MyOfferController" class="App\Controller\Profile\MyOfferController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Profile\MyProfileController" class="App\Controller\Profile\MyProfileController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Profile\MyProfileController" class="App\Controller\Profile\MyProfileController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Profile\MyProfileController" class="App\Controller\Profile\MyProfileController" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Profile\MyRequestController" class="App\Controller\Profile\MyRequestController" autowire="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Profile\MyRequestController" class="App\Controller\Profile\MyRequestController" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Controller\Profile\MyRequestController" class="App\Controller\Profile\MyRequestController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Profile\OfferController" class="App\Controller\Profile\OfferController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Profile\OfferController" class="App\Controller\Profile\OfferController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\Profile\OfferController" class="App\Controller\Profile\OfferController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -6651,10 +6689,14 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\TechnicalSupportController" class="App\Controller\TechnicalSupportController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\TechnicalSupportController" class="App\Controller\TechnicalSupportController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\TechnicalSupportController" class="App\Controller\TechnicalSupportController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\GenreFixtures" class="App\DataFixtures\GenreFixtures" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\DataFixtures\GenreFixtures" class="App\DataFixtures\GenreFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\InterestFixtures" class="App\DataFixtures\InterestFixtures" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\InterestFixtures" class="App\DataFixtures\InterestFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\MemberFixtures" class="App\DataFixtures\MemberFixtures" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\MemberFixtures" class="App\DataFixtures\MemberFixtures" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\OfferFixtures" class="App\DataFixtures\OfferFixtures" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\DataFixtures\OfferFixtures" class="App\DataFixtures\OfferFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ContactType" class="App\Form\ContactType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\ContactType" class="App\Form\ContactType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\EditMyPasswordType" class="App\Form\EditMyPasswordType" autowire="true" abstract="true"/>
@@ -6663,6 +6705,8 @@
     <service id=".abstract.instanceof.App\Form\EditMyProfileType" class="App\Form\EditMyProfileType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\MemberType" class="App\Form\MemberType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\MemberType" class="App\Form\MemberType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\OfferType" class="App\Form\OfferType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\OfferType" class="App\Form\OfferType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ResetPasswordRequestType" class="App\Form\ResetPasswordRequestType" autowire="true" abstract="true"/>
@@ -6671,6 +6715,8 @@
     <service id=".abstract.instanceof.App\Form\ResetPasswordType" class="App\Form\ResetPasswordType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\MemberRepository" class="App\Repository\MemberRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\MemberRepository" class="App\Repository\MemberRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\OfferRepository" class="App\Repository\OfferRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\OfferRepository" class="App\Repository\OfferRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Twig\Extension\ExtensionInterface.0.App\Twig\Extension\AppExtension" class="App\Twig\Extension\AppExtension" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Twig\Extension\AppExtension" class="App\Twig\Extension\AppExtension" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Twig\Extension\RuntimeExtensionInterface.0.App\Twig\Runtime\AppExtensionRuntime" class="App\Twig\Runtime\AppExtensionRuntime" autowire="true" abstract="true"/>
@@ -7492,13 +7538,14 @@
       <argument type="service" id="argument_resolver.query_parameter_value_resolver"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator..0p0Y7y" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.ZKcRp5N" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\ContactType" type="service_closure" id="App\Form\ContactType"/>
         <argument key="App\Form\EditMyPasswordType" type="service_closure" id="App\Form\EditMyPasswordType"/>
         <argument key="App\Form\EditMyProfileType" type="service_closure" id="App\Form\EditMyProfileType"/>
         <argument key="App\Form\MemberType" type="service_closure" id="App\Form\MemberType"/>
+        <argument key="App\Form\OfferType" type="service_closure" id="App\Form\OfferType"/>
         <argument key="App\Form\RegistrationFormType" type="service_closure" id="App\Form\RegistrationFormType"/>
         <argument key="App\Form\ResetPasswordRequestType" type="service_closure" id="App\Form\ResetPasswordRequestType"/>
         <argument key="App\Form\ResetPasswordType" type="service_closure" id="App\Form\ResetPasswordType"/>
@@ -7527,10 +7574,11 @@
         <argument key="turbo.doctrine.event_listener" type="service_closure" id="turbo.doctrine.event_listener"/>
       </argument>
     </service>
-    <service id=".service_locator.H6e_jJ3" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.dZ9KWL4" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\MemberRepository" type="service_closure" id="App\Repository\MemberRepository"/>
+        <argument key="App\Repository\OfferRepository" type="service_closure" id="App\Repository\OfferRepository"/>
       </argument>
     </service>
     <service id=".service_locator.BxSdgVt" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -7677,15 +7725,21 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.ZyP9f7K" method="withContext"/>
     </service>
+    <service id=".service_locator.ZyP9f7K.App\Controller\Profile\MyOfferController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\Profile\MyOfferController"/>
+      <argument>App\Controller\Profile\MyOfferController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.ZyP9f7K" method="withContext"/>
+    </service>
     <service id=".service_locator.ZyP9f7K.App\Controller\Profile\MyProfileController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\Profile\MyProfileController"/>
       <argument>App\Controller\Profile\MyProfileController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.ZyP9f7K" method="withContext"/>
     </service>
-    <service id=".service_locator.ZyP9f7K.App\Controller\Profile\MyRequestController" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\Profile\MyRequestController"/>
-      <argument>App\Controller\Profile\MyRequestController</argument>
+    <service id=".service_locator.ZyP9f7K.App\Controller\Profile\OfferController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\Profile\OfferController"/>
+      <argument>App\Controller\Profile\OfferController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.ZyP9f7K" method="withContext"/>
     </service>
@@ -7882,8 +7936,9 @@
           <argument>App\Controller\HomepageController</argument>
           <argument>App\Controller\LegalSupportController</argument>
           <argument>App\Controller\Profile\HomepageController</argument>
+          <argument>App\Controller\Profile\MyOfferController</argument>
           <argument>App\Controller\Profile\MyProfileController</argument>
-          <argument>App\Controller\Profile\MyRequestController</argument>
+          <argument>App\Controller\Profile\OfferController</argument>
           <argument>App\Controller\RegistrationController</argument>
           <argument>App\Controller\SecurityController</argument>
           <argument>App\Controller\TechnicalSupportController</argument>

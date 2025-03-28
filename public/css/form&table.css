@@ -1,0 +1,36 @@
+.form-label{
+    font-family: BookAntiqua;
+    font-size: clamp(1rem, 1.5vw, 2rem);
+    margin-top: 1rem;
+}
+
+.form-control{
+    font-family: BookAntiqua;
+}
+
+h2{
+    font-size: clamp(2rem, 2vw, 2.5rem);
+    margin-block: 1rem;
+    font-weight: 600;
+}
+
+legend{
+    font-family: Calligraffitti;;
+    font-size: clamp(1rem, 1.5vw, 2rem);
+    font-weight: 600;
+    border-bottom: solid .1rem black; 
+    padding-top: 1.5rem;
+    padding-bottom: 0.5rem; 
+}
+
+.btn-submit{
+    margin-block: 1rem;
+}
+
+.separation{
+    border-right: solid .2rem black;  
+}
+
+th{
+    background-color: #fcb9b9!important ;
+}

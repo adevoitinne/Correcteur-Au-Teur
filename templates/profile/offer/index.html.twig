@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<main aria-label="contenu principal" id="main">
+    	<div class="container-fluid">
+			<h2 class="text-center subtitle ">Toutes les Demandes de Correction</h2>
+            {% include "_inc/notice.html.twig" %}
+			<div class="row">
+				<div class="col-md-12 col-sm-12">
+				
+                <table class="table table-bordered table-hover table-responsive">
+                    <tr class="table-secondary">
+                        <th class="text-center">Numéro</th>
+                        <th class="text-center">Nom de l'auteur</th>
+                        <th class="text-center">Titre</th>
+                        <th>Actions</th>
+                    </tr>                                            
+                    {% for offer in offers %}
+                        <tr>
+                            <td class="text-center">{{offer.id}}</td>
+                            <td class="text-center">{{offer.member.lastname}}</td>
+                            <td class="text-center">{{offer.title}}</td>
+                            <td>
+                            <a href="{{ url('profile.offer.detail', { id: offer.id }) }}" class="button btn btn-secondary">Consulter</a>
+                            </td>
+                        </tr>    
+                    {% endfor %} 
+                </table>
+			</div>
+                <p>
+				    <a href="{{ url('profile.homepage.index') }}" class="button btn btn-secondary">Retour au menu</a> 
+			    </p>
+			</div>
+		</div>
+	</main>
+{% endblock %}

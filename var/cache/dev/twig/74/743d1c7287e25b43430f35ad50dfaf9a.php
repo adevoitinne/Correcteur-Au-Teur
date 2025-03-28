@@ -85,24 +85,26 @@ class __TwigTemplate_0a8e1ba17ca317319d978fe598dcf39d extends Template
         yield "\t\t\t\t\t<table class=\"table table-striped\">
 \t\t\t\t\t\t<tr>
 \t\t\t\t\t\t\t<th>Email</th>
-\t\t\t\t\t\t</tr>
-\t\t\t\t\t\t";
+\t\t\t\t\t\t\t";
         // line 14
+        yield "\t\t\t\t\t\t</tr>
+\t\t\t\t\t\t";
+        // line 15
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["members"]) || array_key_exists("members", $context) ? $context["members"] : (function () { throw new RuntimeError('Variable "members" does not exist.', 14, $this->source); })()));
+        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["members"]) || array_key_exists("members", $context) ? $context["members"] : (function () { throw new RuntimeError('Variable "members" does not exist.', 15, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["member"]) {
-            // line 15
+            // line 16
             yield "\t\t\t\t\t\t\t<tr id=\"row_member_";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["member"], "id", [], "any", false, false, false, 15), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["member"], "id", [], "any", false, false, false, 16), "html", null, true);
             yield "\">
 \t\t\t\t\t\t\t\t<td>";
-            // line 16
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["member"], "email", [], "any", false, false, false, 16), "html", null, true);
+            // line 17
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["member"], "email", [], "any", false, false, false, 17), "html", null, true);
             yield "</td>
 \t\t\t\t\t\t\t\t<td>
 \t\t\t\t\t\t\t\t\t<a href=\"";
-            // line 18
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("admin.member.detail", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["member"], "id", [], "any", false, false, false, 18)]), "html", null, true);
+            // line 19
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("admin.member.detail", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["member"], "id", [], "any", false, false, false, 19)]), "html", null, true);
             yield "\" class=\"btn btn-secondary\">Consult</a>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t
                                     <button data-bs-toggle=\"modal\" data-bs-target=\"#removeModal\" class=\"btn btn-danger\">Remove</button>
@@ -121,8 +123,8 @@ class __TwigTemplate_0a8e1ba17ca317319d978fe598dcf39d extends Template
                                                 <div class=\"modal-footer\">
                                                     <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Annuler</button>
                                                     <a class=\"btn btn-primary\" href=\"";
-            // line 35
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("admin.member.remove", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["member"], "id", [], "any", false, false, false, 35)]), "html", null, true);
+            // line 36
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("admin.member.remove", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["member"], "id", [], "any", false, false, false, 36)]), "html", null, true);
             yield "\">Oui, supprimer</a>
                                                 </div>
                                             </div>
@@ -134,7 +136,7 @@ class __TwigTemplate_0a8e1ba17ca317319d978fe598dcf39d extends Template
 \t\t\t\t\t\t\t\t\t
 \t\t\t\t\t\t\t\t\t
 \t\t\t\t\t\t\t\t\t";
-            // line 46
+            // line 47
             yield "\t\t\t\t\t\t\t\t</td>
 \t\t\t\t\t\t\t</tr>
 \t\t\t\t\t\t";
@@ -142,11 +144,11 @@ class __TwigTemplate_0a8e1ba17ca317319d978fe598dcf39d extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['member'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 49
+        // line 50
         yield "\t\t\t\t\t</table>
 \t\t\t\t\t<p>
 \t\t\t\t\t\t<a href=\"";
-        // line 51
+        // line 52
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("admin.homepage.index");
         yield "\" class=\"btn btn-secondary\">Retour à l'Espace administration</a>
 \t\t\t\t\t</p>
@@ -185,7 +187,7 @@ class __TwigTemplate_0a8e1ba17ca317319d978fe598dcf39d extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  150 => 51,  146 => 49,  138 => 46,  125 => 35,  105 => 18,  100 => 16,  95 => 15,  91 => 14,  85 => 10,  83 => 9,  76 => 4,  63 => 3,  40 => 1,);
+        return array (  152 => 52,  148 => 50,  140 => 47,  127 => 36,  107 => 19,  102 => 17,  97 => 16,  93 => 15,  90 => 14,  85 => 10,  83 => 9,  76 => 4,  63 => 3,  40 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -202,6 +204,7 @@ class __TwigTemplate_0a8e1ba17ca317319d978fe598dcf39d extends Template
 \t\t\t\t\t<table class=\"table table-striped\">
 \t\t\t\t\t\t<tr>
 \t\t\t\t\t\t\t<th>Email</th>
+\t\t\t\t\t\t\t{# à compléter #}
 \t\t\t\t\t\t</tr>
 \t\t\t\t\t\t{% for member in members %}
 \t\t\t\t\t\t\t<tr id=\"row_member_{{ member.id }}\">

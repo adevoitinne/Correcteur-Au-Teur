@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Page-1" id="cwkz8XHemz3K-lwugrlc">
-        <mxGraphModel dx="1269" dy="1848" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0" adaptiveColors="simple">
+        <mxGraphModel dx="2309" dy="2080" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0" adaptiveColors="simple">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -16,7 +16,7 @@
                 <mxCell id="MpJ06HQKLfrWw8U0iryj-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;" parent="MpJ06HQKLfrWw8U0iryj-5" source="MpJ06HQKLfrWw8U0iryj-6" target="MpJ06HQKLfrWw8U0iryj-6" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="MpJ06HQKLfrWw8U0iryj-10" value="Request" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=light-dark(#9929BD,#39A3A5);fontColor=#143642;" parent="1" vertex="1">
+                <mxCell id="MpJ06HQKLfrWw8U0iryj-10" value="Offer" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=light-dark(#9929BD,#39A3A5);fontColor=#143642;" parent="1" vertex="1">
                     <mxGeometry x="40" y="40" width="160" height="160" as="geometry"/>
                 </mxCell>
                 <mxCell id="MpJ06HQKLfrWw8U0iryj-11" value="&lt;u style=&quot;line-height: 130%;&quot;&gt;&lt;b&gt;id&lt;/b&gt;&lt;/u&gt;&lt;div style=&quot;line-height: 130%;&quot;&gt;created_at&lt;br&gt;&lt;div&gt;artwork_type&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;deadline&lt;br&gt;&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(63, 63, 63); background-color: transparent;&quot;&gt;title&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(63, 63, 63); background-color: transparent;&quot;&gt;description&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;labelBackgroundColor=none;fontColor=#143642;" parent="MpJ06HQKLfrWw8U0iryj-10" vertex="1">
@@ -186,7 +186,7 @@
                         <mxRectangle width="150" height="30" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="PtJYfhTD-J3w3Zn-4fKZ-39" value="Request" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;strokeColor=#9929BD;fontColor=#143642;fillColor=#FAE5C7;" parent="1" vertex="1">
+                <mxCell id="PtJYfhTD-J3w3Zn-4fKZ-39" value="Offer" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;strokeColor=#9929BD;fontColor=#143642;fillColor=#FAE5C7;" parent="1" vertex="1">
                     <mxGeometry x="80" y="355" width="180" height="240" as="geometry"/>
                 </mxCell>
                 <mxCell id="PtJYfhTD-J3w3Zn-4fKZ-40" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=1;strokeColor=#0F8B8D;fontColor=#143642;" parent="PtJYfhTD-J3w3Zn-4fKZ-39" vertex="1">
@@ -379,7 +379,7 @@
                         <mxRectangle width="150" height="20" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="30" value="Request_&lt;span style=&quot;color: rgb(20, 54, 66);&quot;&gt;Genre&lt;/span&gt;" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;strokeColor=#9929BD;fontColor=#143642;fillColor=#FAE5C7;" parent="1" vertex="1">
+                <mxCell id="30" value="Offer_&lt;span style=&quot;color: rgb(20, 54, 66);&quot;&gt;Genre&lt;/span&gt;" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;strokeColor=#9929BD;fontColor=#143642;fillColor=#FAE5C7;" parent="1" vertex="1">
                     <mxGeometry x="-150" y="430" width="180" height="120" as="geometry"/>
                 </mxCell>
                 <mxCell id="31" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=1;strokeColor=#0F8B8D;fontColor=#143642;" parent="30" vertex="1">
@@ -403,7 +403,7 @@
                         <mxRectangle width="30" height="30" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="36" value="&lt;b&gt;request_id&lt;/b&gt;" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;strokeColor=light-dark(#7b219f, #39a3a5);fontColor=#143642;" parent="34" vertex="1">
+                <mxCell id="36" value="&lt;b&gt;offer_id&lt;/b&gt;" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;strokeColor=light-dark(#7b219f, #39a3a5);fontColor=#143642;" parent="34" vertex="1">
                     <mxGeometry x="30" width="150" height="30" as="geometry">
                         <mxRectangle width="150" height="30" as="alternateBounds"/>
                     </mxGeometry>

@@ -104,10 +104,13 @@ class __TwigTemplate_bae226c42025e6d34c0c2be62e3e2a47 extends Template
 \t\t\t\t\t<p class=\"title-2 title-menu h4\">Mes demandes de correction</p>
 \t\t\t\t\t<a href=\"";
         // line 22
-        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("profile.myrequest.index");
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("profile.myoffer.index");
         yield "\" class=\"btn button btn-secondary link-menu link-2\">Gérer</a>
 \t\t\t\t\t<p class=\"title-3 title-menu h4\">Toutes les demandes</p>
-\t\t\t\t\t<a href=\"#\" class=\"btn button btn-secondary link-menu link-3\">Consulter</a>
+\t\t\t\t\t<a href=\"";
+        // line 24
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("profile.offer.index");
+        yield "\" class=\"btn button btn-secondary link-menu link-3\">Consulter</a>
 \t\t\t\t\t<p class=\"title-4 title-menu h4\">Me déconnecter</p>
 \t\t\t\t\t<a href=\"";
         // line 26
@@ -161,7 +164,7 @@ class __TwigTemplate_bae226c42025e6d34c0c2be62e3e2a47 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  121 => 30,  114 => 26,  107 => 22,  102 => 20,  93 => 13,  86 => 9,  81 => 6,  79 => 5,  76 => 4,  63 => 3,  40 => 1,);
+        return array (  124 => 30,  117 => 26,  112 => 24,  107 => 22,  102 => 20,  93 => 13,  86 => 9,  81 => 6,  79 => 5,  76 => 4,  63 => 3,  40 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -187,9 +190,9 @@ class __TwigTemplate_bae226c42025e6d34c0c2be62e3e2a47 extends Template
 \t\t\t\t\t<p class=\"title-1 title-menu h4\">Mon profil</p>
 \t\t\t\t\t<a href=\"{{url('profile.myprofile.form')}}\" class=\"btn button btn-secondary link-menu link-1\">Gérer</a>
 \t\t\t\t\t<p class=\"title-2 title-menu h4\">Mes demandes de correction</p>
-\t\t\t\t\t<a href=\"{{ url('profile.myrequest.index')}}\" class=\"btn button btn-secondary link-menu link-2\">Gérer</a>
+\t\t\t\t\t<a href=\"{{ url('profile.myoffer.index')}}\" class=\"btn button btn-secondary link-menu link-2\">Gérer</a>
 \t\t\t\t\t<p class=\"title-3 title-menu h4\">Toutes les demandes</p>
-\t\t\t\t\t<a href=\"#\" class=\"btn button btn-secondary link-menu link-3\">Consulter</a>
+\t\t\t\t\t<a href=\"{{ url('profile.offer.index')}}\" class=\"btn button btn-secondary link-menu link-3\">Consulter</a>
 \t\t\t\t\t<p class=\"title-4 title-menu h4\">Me déconnecter</p>
 \t\t\t\t\t<a href=\"{{url('security.logout')}}\" class=\"btn button btn-secondary link-menu link-4\">Déconnexion</a>
 \t\t\t\t</div>

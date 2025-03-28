@@ -103,9 +103,8 @@ class __TwigTemplate_646c92c976ee0c167ed3b01606b89f3f extends Template
         // line 28
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("profile.homepage.index");
         yield "\" class=\"btn btn-secondary\">Retour au menu</a>
-                        ";
-        // line 30
-        yield "\t\t\t        </p>
+                        
+\t\t\t        </p>
 \t\t\t</div>
 \t\t</div>
 \t</main>
@@ -140,7 +139,7 @@ class __TwigTemplate_646c92c976ee0c167ed3b01606b89f3f extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  108 => 30,  104 => 28,  100 => 26,  93 => 20,  87 => 11,  83 => 8,  81 => 7,  76 => 4,  63 => 3,  40 => 1,);
+        return array (  104 => 28,  100 => 26,  93 => 20,  87 => 11,  83 => 8,  81 => 7,  76 => 4,  63 => 3,  40 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -173,7 +172,7 @@ class __TwigTemplate_646c92c976ee0c167ed3b01606b89f3f extends Template
 \t\t\t\t</div>
                 <p>
 \t\t\t\t        <a href=\"{{ url('profile.homepage.index') }}\" class=\"btn btn-secondary\">Retour au menu</a>
-                        {# <a href=\"{{ url('profile.myprofile.password.edit') }}\" class=\"btn btn-secondary\">Modifier mon mot de passe</a> #}
+                        
 \t\t\t        </p>
 \t\t\t</div>
 \t\t</div>

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<main aria-label="contenu principal" id="main">
+    	<div class="container-fluid">
+			<h2 class="text-center subtitle ">Demande de correction n°{{offer.id}} </h2>
+            {# je voulais ajouter du : {{offer.created_at|date('dd/mm/yy')}} mais même erreur que pour l'affichage de contact_network
+            
+            Dans mon cours ils mentionnaient d'écrire les propriétés en camelCase plutôt qu'avec des underscores. Est-ce cela qui crée l'erreur?#}
+            <p class="">
+                <a href="{{ url('profile.offer.index') }}" class="btn button btn-secondary">Retour à la liste</a>       
+            </p>
+            <div class="row justify-content-between section g-1" aria-label="Informations concernant le manuscrit">
+            <legend>Manuscrit :</legend>
+                <div class="col-md-4 col-sm-12 paragraph">    
+                   Type d'œuvre :  {{offer.type}}
+                </div>        
+                <div class="col-md-4 col-sm-12 paragraph">    
+                    Echéance envisagée : {{offer.deadline }}
+                </div>
+                <div class="col-12 paragraph">    
+                    Genre(s) :
+                    {% for genre in offer.genres %}
+                        {{genre != loop.last ? genre.name ~ ', ' : genre.name}}
+                    {% endfor %}
+                </div> 
+            </div>
+            <div class="row justify-content-between section g-1" aria-label="Titre et description du manuscrit">
+            <legend>Titre et Descrption succinte :</legend>
+                <div class="col-12 paragraph">    
+                    Titre : {{offer.title}}
+                </div>        
+                <div class="col-12 paragraph">    
+                    Description : {{offer.description}}
+                </div> 
+            </div>
+            <div class="row justify-content-between section g-1" aria-label="Informations concernant l'auteur">
+            <legend>Auteur :</legend>
+                <div class="col-md-4 col-sm-12 paragraph">    
+                    Prénom : {{offer.member.firstname}}
+                </div>
+                <div class="col-md-4 col-sm-12 paragraph">    
+                    Nom : {{offer.member.lastname}}
+                </div>
+                <div class="col-md-4 col-sm-12 paragraph">    
+                    Email : {{offer.member.email }}
+                </div>
+                {# <div class="col-md-4 col-sm-12 paragraph">    
+                    Réseau(x) de contact : {{offer.member.contact_network }}
+                </div> #}
+                {#  Neither the property "contact_network" nor one of the methods "contact_network()", "getcontact_network()"/"iscontact_network()"/"hascontact_network()" or "__call()" exist and have public access in class "Proxies\__CG__\App\Entity\Member".#}
+            </div>
+
+			
+	
+			</div>
+		</div>
+	</main>
+{% endblock %}

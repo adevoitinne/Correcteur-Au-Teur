@@ -22,10 +22,11 @@ return [
         '/functioning' => [[['_route' => 'functioning.index', '_controller' => 'App\\Controller\\FunctioningController::index'], null, ['GET' => 0], null, false, false, null]],
         '/legal-support' => [[['_route' => 'legal-support.index', '_controller' => 'App\\Controller\\LegalSupportController::index'], null, ['GET' => 0], null, false, false, null]],
         '/profile' => [[['_route' => 'profile.homepage.index', '_controller' => 'App\\Controller\\Profile\\HomepageController::index'], null, null, null, true, false, null]],
+        '/profile/myoffer' => [[['_route' => 'profile.myoffer.index', '_controller' => 'App\\Controller\\Profile\\MyOfferController::index'], null, null, null, true, false, null]],
+        '/profile/myoffer/form' => [[['_route' => 'profile.myoffer.form', '_controller' => 'App\\Controller\\Profile\\MyOfferController::form'], null, null, null, false, false, null]],
         '/profile/myprofile/form' => [[['_route' => 'profile.myprofile.form', '_controller' => 'App\\Controller\\Profile\\MyProfileController::form'], null, null, null, false, false, null]],
         '/profile/myprofile/password' => [[['_route' => 'profile.myprofile.password.edit', '_controller' => 'App\\Controller\\Profile\\MyProfileController::edit'], null, null, null, false, false, null]],
-        '/profile/myrequest' => [[['_route' => 'profile.myrequest.index', '_controller' => 'App\\Controller\\Profile\\MyRequestController::index'], null, null, null, true, false, null]],
-        '/profile/myrequest/form' => [[['_route' => 'profile.myrequest.form', '_controller' => 'App\\Controller\\Profile\\MyRequestController::form'], null, null, null, false, false, null]],
+        '/profile/offer' => [[['_route' => 'profile.offer.index', '_controller' => 'App\\Controller\\Profile\\OfferController::index'], null, null, null, true, false, null]],
         '/' => [[['_route' => 'homepage.index', '_controller' => 'App\\Controller\\HomepageController::index'], null, ['GET' => 0], null, false, false, null]],
         '/register' => [[['_route' => 'registration.register', '_controller' => 'App\\Controller\\RegistrationController::register'], null, null, null, false, false, null]],
         '/resend-verif' => [[['_route' => 'registration.resend-verif', '_controller' => 'App\\Controller\\RegistrationController::resendVerif'], null, null, null, false, false, null]],
@@ -61,8 +62,15 @@ return [
                         .'|remove/([^/]++)(*:291)'
                     .')'
                 .')'
-                .'|/verif/([^/]++)(*:316)'
-                .'|/reset\\-password/([^/]++)(*:349)'
+                .'|/profile/(?'
+                    .'|myoffer/(?'
+                        .'|form/update(?:/([^/]++))?(*:349)'
+                        .'|remove(?:/([^/]++))?(*:377)'
+                    .')'
+                    .'|offer/detail/([^/]++)(*:407)'
+                .')'
+                .'|/verif/([^/]++)(*:431)'
+                .'|/reset\\-password/([^/]++)(*:464)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -77,8 +85,11 @@ return [
         235 => [[['_route' => 'admin.contact.remove', '_controller' => 'App\\Controller\\Admin\\ContactController::remove'], ['id'], null, null, false, true, null]],
         268 => [[['_route' => 'admin.member.detail', '_controller' => 'App\\Controller\\Admin\\MemberController::detail'], ['id'], null, null, false, true, null]],
         291 => [[['_route' => 'admin.member.remove', '_controller' => 'App\\Controller\\Admin\\MemberController::remove'], ['id'], null, null, false, true, null]],
-        316 => [[['_route' => 'registration.verify-user', '_controller' => 'App\\Controller\\RegistrationController::verifUser'], ['token'], null, null, false, true, null]],
-        349 => [
+        349 => [[['_route' => 'profile.myoffer.form.update', 'id' => null, '_controller' => 'App\\Controller\\Profile\\MyOfferController::form'], ['id'], null, null, false, true, null]],
+        377 => [[['_route' => 'profile.myoffer.remove', 'id' => null, '_controller' => 'App\\Controller\\Profile\\MyOfferController::remove'], ['id'], null, null, false, true, null]],
+        407 => [[['_route' => 'profile.offer.detail', '_controller' => 'App\\Controller\\Profile\\OfferController::detail'], ['id'], null, null, false, true, null]],
+        431 => [[['_route' => 'registration.verify-user', '_controller' => 'App\\Controller\\RegistrationController::verifUser'], ['token'], null, null, false, true, null]],
+        464 => [
             [['_route' => 'security.reset-password', '_controller' => 'App\\Controller\\SecurityController::resetPassword'], ['token'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

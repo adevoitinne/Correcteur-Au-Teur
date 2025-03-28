@@ -584,23 +584,12 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
     }
 
     /**
-     * @template TValue
-     * @param TValue $value
      * Asset Mapper configuration
-     * @default {"enabled":false,"paths":[],"excluded_patterns":[],"exclude_dotfiles":true,"server":true,"public_prefix":"\/assets\/","missing_import_mode":"warn","extensions":[],"importmap_path":"%kernel.project_dir%\/importmap.php","importmap_polyfill":"es-module-shims","importmap_script_attributes":[],"vendor_dir":"%kernel.project_dir%\/assets\/vendor"}
-     * @return \Symfony\Config\Framework\AssetMapperConfig|$this
-     * @psalm-return (TValue is array ? \Symfony\Config\Framework\AssetMapperConfig : static)
-     */
-    public function assetMapper(array $value = []): \Symfony\Config\Framework\AssetMapperConfig|static
+     * @default {"enabled":true,"paths":[],"excluded_patterns":[],"exclude_dotfiles":true,"server":true,"public_prefix":"\/assets\/","missing_import_mode":"warn","extensions":[],"importmap_path":"%kernel.project_dir%\/importmap.php","importmap_polyfill":"es-module-shims","importmap_script_attributes":[],"vendor_dir":"%kernel.project_dir%\/assets\/vendor"}
+    */
+    public function assetMapper(array $value = []): \Symfony\Config\Framework\AssetMapperConfig
     {
-        if (!\is_array($value)) {
-            $this->_usedProperties['assetMapper'] = true;
-            $this->assetMapper = $value;
-
-            return $this;
-        }
-
-        if (!$this->assetMapper instanceof \Symfony\Config\Framework\AssetMapperConfig) {
+        if (null === $this->assetMapper) {
             $this->_usedProperties['assetMapper'] = true;
             $this->assetMapper = new \Symfony\Config\Framework\AssetMapperConfig($value);
         } elseif (0 < \func_num_args()) {
@@ -611,23 +600,12 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
     }
 
     /**
-     * @template TValue
-     * @param TValue $value
      * Translator configuration
-     * @default {"enabled":false,"fallbacks":[],"logging":false,"formatter":"translator.formatter.default","cache_dir":"%kernel.cache_dir%\/translations","default_path":"%kernel.project_dir%\/translations","paths":[],"pseudo_localization":{"enabled":false,"accents":true,"expansion_factor":1,"brackets":true,"parse_html":false,"localizable_html_attributes":[]},"providers":[]}
-     * @return \Symfony\Config\Framework\TranslatorConfig|$this
-     * @psalm-return (TValue is array ? \Symfony\Config\Framework\TranslatorConfig : static)
-     */
-    public function translator(array $value = []): \Symfony\Config\Framework\TranslatorConfig|static
+     * @default {"enabled":true,"fallbacks":[],"logging":false,"formatter":"translator.formatter.default","cache_dir":"%kernel.cache_dir%\/translations","default_path":"%kernel.project_dir%\/translations","paths":[],"pseudo_localization":{"enabled":false,"accents":true,"expansion_factor":1,"brackets":true,"parse_html":false,"localizable_html_attributes":[]},"providers":[]}
+    */
+    public function translator(array $value = []): \Symfony\Config\Framework\TranslatorConfig
     {
-        if (!\is_array($value)) {
-            $this->_usedProperties['translator'] = true;
-            $this->translator = $value;
-
-            return $this;
-        }
-
-        if (!$this->translator instanceof \Symfony\Config\Framework\TranslatorConfig) {
+        if (null === $this->translator) {
             $this->_usedProperties['translator'] = true;
             $this->translator = new \Symfony\Config\Framework\TranslatorConfig($value);
         } elseif (0 < \func_num_args()) {
@@ -943,7 +921,7 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
      * @template TValue
      * @param TValue $value
      * HTTP Client configuration
-     * @default {"enabled":false,"scoped_clients":[]}
+     * @default {"enabled":true,"scoped_clients":[]}
      * @return \Symfony\Config\Framework\HttpClientConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\Framework\HttpClientConfig : static)
      */
@@ -967,23 +945,12 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
     }
 
     /**
-     * @template TValue
-     * @param TValue $value
      * Mailer configuration
-     * @default {"enabled":false,"message_bus":null,"dsn":null,"transports":[],"headers":[]}
-     * @return \Symfony\Config\Framework\MailerConfig|$this
-     * @psalm-return (TValue is array ? \Symfony\Config\Framework\MailerConfig : static)
-     */
-    public function mailer(array $value = []): \Symfony\Config\Framework\MailerConfig|static
+     * @default {"enabled":true,"message_bus":null,"dsn":null,"transports":[],"headers":[]}
+    */
+    public function mailer(array $value = []): \Symfony\Config\Framework\MailerConfig
     {
-        if (!\is_array($value)) {
-            $this->_usedProperties['mailer'] = true;
-            $this->mailer = $value;
-
-            return $this;
-        }
-
-        if (!$this->mailer instanceof \Symfony\Config\Framework\MailerConfig) {
+        if (null === $this->mailer) {
             $this->_usedProperties['mailer'] = true;
             $this->mailer = new \Symfony\Config\Framework\MailerConfig($value);
         } elseif (0 < \func_num_args()) {
@@ -1335,13 +1302,13 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
 
         if (array_key_exists('asset_mapper', $value)) {
             $this->_usedProperties['assetMapper'] = true;
-            $this->assetMapper = \is_array($value['asset_mapper']) ? new \Symfony\Config\Framework\AssetMapperConfig($value['asset_mapper']) : $value['asset_mapper'];
+            $this->assetMapper = new \Symfony\Config\Framework\AssetMapperConfig($value['asset_mapper']);
             unset($value['asset_mapper']);
         }
 
         if (array_key_exists('translator', $value)) {
             $this->_usedProperties['translator'] = true;
-            $this->translator = \is_array($value['translator']) ? new \Symfony\Config\Framework\TranslatorConfig($value['translator']) : $value['translator'];
+            $this->translator = new \Symfony\Config\Framework\TranslatorConfig($value['translator']);
             unset($value['translator']);
         }
 
@@ -1443,7 +1410,7 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
 
         if (array_key_exists('mailer', $value)) {
             $this->_usedProperties['mailer'] = true;
-            $this->mailer = \is_array($value['mailer']) ? new \Symfony\Config\Framework\MailerConfig($value['mailer']) : $value['mailer'];
+            $this->mailer = new \Symfony\Config\Framework\MailerConfig($value['mailer']);
             unset($value['mailer']);
         }
 
@@ -1576,10 +1543,10 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
             $output['assets'] = $this->assets->toArray();
         }
         if (isset($this->_usedProperties['assetMapper'])) {
-            $output['asset_mapper'] = $this->assetMapper instanceof \Symfony\Config\Framework\AssetMapperConfig ? $this->assetMapper->toArray() : $this->assetMapper;
+            $output['asset_mapper'] = $this->assetMapper->toArray();
         }
         if (isset($this->_usedProperties['translator'])) {
-            $output['translator'] = $this->translator instanceof \Symfony\Config\Framework\TranslatorConfig ? $this->translator->toArray() : $this->translator;
+            $output['translator'] = $this->translator->toArray();
         }
         if (isset($this->_usedProperties['validation'])) {
             $output['validation'] = $this->validation->toArray();
@@ -1630,7 +1597,7 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
             $output['http_client'] = $this->httpClient instanceof \Symfony\Config\Framework\HttpClientConfig ? $this->httpClient->toArray() : $this->httpClient;
         }
         if (isset($this->_usedProperties['mailer'])) {
-            $output['mailer'] = $this->mailer instanceof \Symfony\Config\Framework\MailerConfig ? $this->mailer->toArray() : $this->mailer;
+            $output['mailer'] = $this->mailer->toArray();
         }
         if (isset($this->_usedProperties['secrets'])) {
             $output['secrets'] = $this->secrets->toArray();

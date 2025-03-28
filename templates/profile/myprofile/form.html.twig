@@ -5,91 +5,79 @@
     	<div class="container-fluid">
 			<h2 class="text-center subtitle ">Mon profil</h2>
             {% include "_inc/notice.html.twig" %}
-			<div class="row">
-				<div class="col-md-12 col-sm-12">
-					 {{ form_start(form, { attr: { novalidate: 'novalidate', aria_label:"formulaire de profil" } }) }}
-                        <div class="row d-flex justify-content-between flex-sm-col flex-md-row">
-                            <fieldset aria-label="Veuillez renseigner vos informations personnelles">
-                            <legend class="underline">Moi :</legend>
-                                <div class="col-4">    
-                                    {{ form_label(form.firstname, 'Prénom :', { label_attr: { class:'form-label'} }) }}
-                                    {{ form_widget(form.firstname, { attr: { class:'form-control', aria_label:'Veuillez obligatoirement saisir votre prénom'} }) }}
-                                    {{ form_errors(form.firstname, { attr: { class:'text-danger'} }) }}
-                                </div>
-                                <div class="col-4">    
-                                    {{ form_label(form.lastname, 'Nom :', { label_attr: { class:'form-label'} }) }}
-                                    {{ form_widget(form.lastname, { attr: { class:'form-control', aria_label:'Veuillez obligatoirement saisir votre nom'} }) }}
-                                    {{ form_errors(form.lastname, { attr: { class:'text-danger'} }) }}  
-                                </div>
-                                <div class="col-4">    
-                                    {# {{ form_label(form.birth_at, 'Date de naissance :', { label_attr: { class:'form-label'} }) }}
-                                    {{ form_widget(form.birth_at, { attr: { class:'form-control', aria_label:'Veuillez  saisir votre date de naissance'} }) }}
-                                    {{ form_errors(form.birth_at, { attr: { class:'text-danger'} }) }} #}
-                                </div> 
-                            </fieldset>
+            <p>
+				<a href="{{ url('profile.homepage.index') }}" class="btn button btn-secondary">Retour au menu</a>
+                <a href="{{ url('profile.myprofile.password.edit') }}" class="btn button btn-secondary ">Modifier mon mot de passe</a>
+			</p>
+				{{ form_start(form, { attr: { novalidate: 'novalidate', aria_label:"formulaire de profil" } }) }} 
+                    <fieldset class="row justify-content-between" aria-label="Veuillez renseigner vos informations personnelles">
+                    <legend>Moi :</legend>
+                        <div class="col-md-4 col-sm-12">    
+                            {{ form_label(form.firstname, 'Prénom :', { label_attr: { class:'form-label'} }) }}                                {{ form_widget(form.firstname, { attr: { class:'form-control', aria_label:'Veuillez obligatoirement saisir votre prénom'} }) }}
+                            {{ form_errors(form.firstname, { attr: { class:'text-danger'} }) }}
+                        </div>        
+                        <div class="col-md-4 col-sm-12">    
+                            {{ form_label(form.lastname, 'Nom :', { label_attr: { class:'form-label'} }) }}
+                            {{ form_widget(form.lastname, { attr: { class:'form-control', aria_label:'Veuillez obligatoirement saisir votre nom'} }) }}
+                            {{ form_errors(form.lastname, { attr: { class:'text-danger'} }) }}  
                         </div>
-                         <div class="row d-flex justify-content-between flex-sm-col flex-md-row">
-                            <fieldset aria-label="Veuillez renseigner vos coordonnées">
-                            <legend class="underline">Me contacter :</legend>
-                                <div class="col-4">    
-                                    {{ form_label(form.email, 'Email :', { label_attr: { class:'form-label'} }) }}
-                                    {{ form_widget(form.email, { attr: { class:'form-control', aria_label:'Veuillez obligatoirement saisir votre email'} }) }}
-                                    {{ form_errors(form.email, { attr: { class:'text-danger'} }) }}  
-                                </div>
-                                <div class="col-4">     
-                                    {{ form_label(form.contact_network, 'Réseau(x) de Contact :', { label_attr: { class:'form-label'} }) }}
-                                    {{ form_widget(form.contact_network, { attr: { class:'form-control', aria_label:'Veuillez obligatoirement saisir votre/vos identifiant(s) et leur réseau social associé'} }) }}
-                                    {{ form_errors(form.contact_network, { attr: { class:'text-danger'} }) }}
-                                </div>
-                                 <div class="col-4">     
-                                    {{ form_label(form.phone, 'Téléphone :', { label_attr: { class:'form-label'} }) }}
-                                    {{ form_widget(form.phone, { attr: { class:'form-control', aria_label:'Veuillez  saisir votre numéro de téléphone', placeholder:'0607080910'} }) }}
-                                    {{ form_errors(form.phone, { attr: { class:'text-danger'} }) }}
-                                </div>        
+                        <div class="col-md-4 col-sm-12">    
+                            {{ form_label(form.birth_at, 'Date de naissance :', { label_attr: { class:'form-label'} }) }}
+                            {{ form_widget(form.birth_at, { attr: { class:'form-control', aria_label:'Veuillez  saisir votre date de naissance', placeholder:'jj/mm/aaaa'} }) }}
+                            {{ form_errors(form.birth_at, { attr: { class:'text-danger'} }) }}
+                        </div> 
+                    </fieldset>
+                    <fieldset class="row justify-content-between" aria-label="Veuillez renseigner vos coordonnées">
+                    <legend>Me contacter :</legend>
+                        <div class="col-md-4 col-sm-12">    
+                            {{ form_label(form.email, 'Email :', { label_attr: { class:'form-label'} }) }}
+                            {{ form_widget(form.email, { attr: { class:'form-control', aria_label:'Veuillez obligatoirement saisir votre email'} }) }}
+                            {{ form_errors(form.email, { attr: { class:'text-danger'} }) }}  
                         </div>
-                        <div class="row d-flex justify-content-between flex-sm-col flex-md-row"> 
-                            <fieldset aria-label="Veuillez renseigner vos informations en tant qu'auteur">
-                            <legend class="underline">Moi en tant qu'Auteur :</legend>
-                                <div class="col-4">    
-                                    {{ form_label(form.is_published, "Edité.e :", { label_attr: { class:'form-label'} }) }}
-                                    {{ form_widget(form.is_published, { attr: { class:'form-control form-check-input', aria_label:'Êtes-vous un auteur édité ?'} }) }}
-                                    {{ form_errors(form.is_published, { attr: { class:'text-danger'} }) }}  
-                                </div>
-                                <div class="col-4">     
-                                    {{ form_label(form.is_self_published, "Auto-Edité.e :", { label_attr: { class:'form-label'} }) }}
-                                    {{ form_widget(form.is_self_published, { attr: { class:'form-control form-check-input', aria_label:'Êtes-vous un auteur auto-édité ?'} }) }}
-                                    {{ form_errors(form.is_self_published, { attr: { class:'text-danger'} }) }}
-                                </div>
-                                <div class="col-4">     
-                                    {{ form_label(form.artwork_type, "Type(s) d'œuvre :", { label_attr: { class:'form-label'} }) }}
-                                    {{ form_widget(form.artwork_type, { attr: { class:'form-control', aria_label:"Quel(s) type(s) d'œuvre écrivez-vous"} }) }}
-                                    {{ form_errors(form.artwork_type, { attr: { class:'text-danger'} }) }}
-                                </div>
-                                {# <div class="col-4">     
-                                    {{ form_label(form.genres, "Genre(s) :", { label_attr: { class:'form-label'} }) }}
-                                    {{ form_widget(form.genres, { attr: { class:'form-control', aria_label:"Quel genre d'œuvre écrivez-vous"} }) }}
-                                    {{ form_errors(form.genres, { attr: { class:'text-danger'} }) }}
-                                </div> #}
-               
+                        <div class="col-md-4 col-sm-12">     
+                            {{ form_label(form.contact_network, 'Réseau(x) de Contact :', { label_attr: { class:'form-label'} }) }}
+                            {{ form_widget(form.contact_network, { attr: { class:'form-control', aria_label:'Veuillez obligatoirement saisir votre/vos identifiant(s) et leur réseau social associé'} }) }}
+                            {{ form_errors(form.contact_network, { attr: { class:'text-danger'} }) }}
                         </div>
-                         <div class="row d-flex justify-content-between flex-sm-col flex-md-row"> 
-                            <fieldset aria-label="Veuillez renseigner vos informations en tant que correcteur">
-                            <legend class="underline">Moi en tant que Correcteur :</legend>
-                                <div class="col-4">     
-                                    {{ form_label(form.interests, "Centre(s) d'intérêt :", { label_attr: { class:'form-label'} }) }}
-                                    {{ form_widget(form.interests, { attr: { class:'form-control', aria_label:"Quel genre d'œuvre écrivez-vous"} }) }}
-                                    {{ form_errors(form.interests, { attr: { class:'text-danger'} }) }}
-                                </div>             
+                        <div class="col-md-4 col-sm-12">     
+                            {{ form_label(form.phone, 'Téléphone :', { label_attr: { class:'form-label'} }) }}
+                            {{ form_widget(form.phone, { attr: { class:'form-control', aria_label:'Veuillez  saisir votre numéro de téléphone', placeholder:'0607080910'} }) }}        
+                            {{ form_errors(form.phone, { attr: { class:'text-danger'} }) }}
                         </div>
-                        <div>
-                             <button type="submit" class="btn button btn-secondary btn-submit">Valider</button>
+                    <fieldset class="row justify-content-between" aria-label="Veuillez renseigner vos informations en tant qu'auteur">
+                    <legend>Moi en tant qu'Auteur :</legend>
+                        <div class="col-md-4 col-sm-12">    
+                            {{ form_label(form.is_published, "Edité.e :", { label_attr: { class:'form-label'} }) }}
+                            {{ form_widget(form.is_published, { attr: { class:'form-control form-check-input', aria_label:'Êtes-vous un auteur édité ?'} }) }}
+                            {{ form_errors(form.is_published, { attr: { class:'text-danger'} }) }}  
                         </div>
-			        {{ form_end(form) }}
-				</div>
-                <p>
-				    <a href="{{ url('profile.homepage.index') }}" class="btn button btn-secondary">Retour au menu</a>
-                    <a href="{{ url('profile.myprofile.password.edit') }}" class="btn button btn-secondary">Modifier mon mot de passe</a>
-			    </p>
+                        <div class="col-md-4 col-sm-12">     
+                            {{ form_label(form.is_self_published, "Auto-Edité.e :", { label_attr: { class:'form-label'} }) }}
+                            {{ form_widget(form.is_self_published, { attr: { class:'form-control form-check-input', aria_label:'Êtes-vous un auteur auto-édité ?'} }) }}
+                            {{ form_errors(form.is_self_published, { attr: { class:'text-danger'} }) }}
+                        </div>
+                        <div class="col-md-4 col-sm-12">     
+                            {{ form_label(form.artwork_type, "Type d'œuvre :", { label_attr: { class:'form-label'} }) }}
+                            {{ form_widget(form.artwork_type, { attr: { class:'form-control', aria_label:"Quel type d'œuvre écrivez-vous ?"} }) }}
+                           {{ form_errors(form.artwork_type, { attr: { class:'text-danger'} }) }}
+                        </div>
+                        <div class="col-12">     
+                            {{ form_label(form.genres, "Genre(s) :", { label_attr: { class:'form-label'} }) }}
+                            {{ form_widget(form.genres, { attr: { class:'form-control d-flex align-items-baseline flex-wrap gap-4', aria_label:"Quel genre d'œuvre écrivez-vous ?"} }) }}
+                            {{ form_errors(form.genres, { attr: { class:'text-danger'} }) }}
+                        </div>
+                    <fieldset class="row justify-content-between" aria-label="Veuillez renseigner vos informations en tant que correcteur">
+                    <legend>Moi en tant que Correcteur :</legend>
+                        <div class="col-12">     
+                            {{ form_label(form.interests, "Centre(s) d'intérêt :", { label_attr: { class:'form-label'} }) }}
+                            {{ form_widget(form.interests, { attr: { class:'form-control d-flex align-items-baseline flex-wrap gap-4', aria_label:"Quel genre d'œuvre souhaitez-vous corriger ?"} }) }}
+                            {{ form_errors(form.interests, { attr: { class:'text-danger'} }) }}
+                        </div>
+                    <div class="row justify-content-end">
+                        <button type="submit" class="col-auto btn button btn-secondary btn-submit">Valider</button>
+                    </div>
+			    {{ form_end(form) }}
+                
 			</div>
 		</div>
 	</main>
